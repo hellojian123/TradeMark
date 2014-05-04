@@ -41,11 +41,11 @@
 		</dependency>
 		<!--数据库支持-->
 		<!--c3p0数据库连接池-->
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>mchange-commons-java</artifactId>
-			<version>0.2.3.4</version>
-		</dependency>
+      <dependency>
+          <groupId>com.mchange</groupId>
+          <artifactId>mchange-commons-java</artifactId>
+          <version>0.2.3.4</version>
+      </dependency>
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
@@ -90,26 +90,26 @@
   <build>
     <finalName>TradeMark</finalName>
 		<plugins>
-			<!--解决不能打包空文件夹-->
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<includeEmptyDirectories>true</includeEmptyDirectories>
-				</configuration>
-			</plugin>
-			<!--tomcat 7-->
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.2</version>
-					<configuration>
-						<url>http://localhost:80</url>
-						<path>/</path>
-						<port>80</port>
-						<uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码 -->
-					</configuration>
-				</plugin>
+            <!--解决不能打包空文件夹-->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <includeEmptyDirectories>true</includeEmptyDirectories>
+                </configuration>
+            </plugin>
+            <!--tomcat 7-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:80</url>
+                    <path>/</path>
+                    <port>80</port>
+                    <uriEncoding>UTF-8</uriEncoding>   <!--tomcat的url编码 -->
+                </configuration>
+            </plugin>
 		</plugins>
   </build>
 </project>
