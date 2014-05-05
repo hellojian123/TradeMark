@@ -1,8 +1,11 @@
 package com.isoft.service;
 
+import com.isoft.bean.NewsTemplate;
 import com.isoft.bean.User;
 import com.isoft.dao.AdminDao;
 import com.isoft.util.ServiceUtils;
+
+import java.util.List;
 
 /**
  * Created by hejian on 14-5-2.
@@ -26,4 +29,28 @@ public class AdminService {
 		}
 		adminDao.update(user);
 	}
+
+	public List<NewsTemplate> getPosteresByType(String type) {
+		if(type==null||type.trim().equals("")){
+			return null;
+		}
+		return adminDao.findPosterAll(type);
+	}
+
+	public boolean updateNewsAndPoster(NewsTemplate nt) {
+		if(nt==null){
+			return false;
+		}
+
+		return adminDao.updateNews(nt);
+	}
+
+	public NewsTemplate getPosterById(Integer id) {
+		if(id==null){
+			return null;
+		}
+		return adminDao.findPoster(id);
+	}
+
+
 }

@@ -1,8 +1,10 @@
 package com.isoft.dao;
 
+import com.isoft.bean.NewsTemplate;
 import com.isoft.bean.User;
 import com.isoft.util.DaoUtils;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by hejian on 14-5-3.
@@ -43,5 +45,49 @@ public class AdminDao {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public List<NewsTemplate> findPosterAll(String type) {
+		if(type==null||type.trim().equals("")){
+			return null;
+		}
+		String sql = "select * from t_newsandposter where type = ?";
+		try {
+			return DaoUtils.findAll(sql,NewsTemplate.class,type);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public boolean updateNews(NewsTemplate nt) {
+		if(nt==null){
+			return false;
+		}
+		String sql = "update t_newsandposter set title=?, imgUrl=?, newsLink=?, type=?, isStatus=? where id = ?";
+		try {
+			DaoUtils.update(sql,
+					nt.getTitle(),
+					nt.getImgUrl(),
+					nt.getNewsLink(),
+					nt.getType(),
+					nt.getIsStatus(),
+					nt.getId());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public NewsTemplate findPoster(Integer id) {
+		if(id==null){
+			return null;
+		}
+		String sql = "select * from t_newsandposter where id = ?";
+		try{
+			return DaoUtils.find(sql,NewsTemplate.class,id);
+		}catch (Exception e){
+			return null;
+		}
+
 	}
 }

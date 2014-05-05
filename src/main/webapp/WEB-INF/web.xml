@@ -25,6 +25,18 @@
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminLoginServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>AdminPosterUIServlet</servlet-name>
+		<servlet-class>com.isoft.web.AdminPosterUIServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FileUpload</servlet-name>
+		<servlet-class>com.isoft.util.FileUpload</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AdminUpdateNewsAndPosterServlet</servlet-name>
+		<servlet-class>com.isoft.web.AdminUpdateNewsAndPosterServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<url-pattern>/admin/login</url-pattern>
@@ -33,7 +45,18 @@
 		<servlet-name>AdminUIServlet</servlet-name>
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>AdminPosterUIServlet</servlet-name>
+		<url-pattern>/admin/goInPosterManage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FileUpload</servlet-name>
+		<url-pattern>/fileupload</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminUpdateNewsAndPosterServlet</servlet-name>
+		<url-pattern>/admin/updateNews</url-pattern>
+	</servlet-mapping>
 
 	<jsp-config>
 		<taglib>
@@ -55,10 +78,10 @@
 		<error-code>404</error-code>
 		<location>/404.jsp</location>
 	</error-page>
-	<error-page>
+	<!--<error-page>
 		<error-code>500</error-code>
 		<location>/404.jsp</location>
-	</error-page>
+	</error-page>-->
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
