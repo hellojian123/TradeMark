@@ -140,7 +140,7 @@
 				var adStatus=$(th).parent().find("select[name=adStatus]").val();
 				var upStatus=$(th).attr("upStatus");
 				if(upStatus == "true"){
-					$.post("${ctx}/admin/updateNews",{"nt.id":id,"nt.title":title,"nt.type":type,"nt.newsLink":newsLink,"nt.imgUrl":imgUrl,"nt.isStatus":adStatus},function(data){
+					$.post("${ctx}/admin/updateNews",{"id":id,"title":title,"type":type,"newsLink":newsLink,"imgUrl":imgUrl,"isStatus":adStatus},function(data){
 					if(data=="0"){
 						alert("更新成功！");
 						/* $("#"+id).attr("src",imgUrl); */
@@ -160,7 +160,7 @@
 			
 		function uploadimage(file){
 			$.ajaxFileUpload({
-				url:'${ctx}/editor/jsp/upload_json.jsp',
+				url:'${ctx}/fileupload',
 				secureuri:false,
 				fileElementId:file+"",
 				dataType: 'json',				
@@ -168,7 +168,6 @@
 				{
 					if(data.error==0){//成功
 						$("#"+file+"Address").val(data.url);
-						//alert($("#"+file+"Address").val());
 						alert("上传成功！");
 					}else{//失败
 						alert(data.message);
