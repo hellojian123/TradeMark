@@ -97,7 +97,7 @@
 				</div>
 			</noscript>
 			
-			<h2>欢迎${sessionScope.admin.username}使用风靡网络后台管理系统</h2>
+			<h2>欢迎${sessionScope.admin.username}使用后台管理系统</h2>
 			<p id="page-intro">您的身份是:
 				<c:if test="${sessionScope.admin.adminType==1}">
 					普通管理员
