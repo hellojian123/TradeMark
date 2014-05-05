@@ -55,11 +55,7 @@
           <artifactId>mchange-commons-java</artifactId>
           <version>0.2.3.4</version>
       </dependency>
-<<<<<<< HEAD
-		<dependency>
-=======
       <dependency>
->>>>>>> 15151149cef4f3328335a6bb49be6b17b98e4610
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.2.1</version>
