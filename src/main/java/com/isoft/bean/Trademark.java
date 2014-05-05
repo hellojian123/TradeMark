@@ -59,6 +59,17 @@ public class Trademark {
     /**商标流程**/
     private String trademarkProcess;
 
+    /** 商标注册名 **/
+    private String trademarkName;
+
+    public String getTrademarkName() {
+        return trademarkName;
+    }
+
+    public void setTrademarkName(String trademarkName) {
+        this.trademarkName = trademarkName;
+    }
+
     public Integer getId() {
         return id;
     }
