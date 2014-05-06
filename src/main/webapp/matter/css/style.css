@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {font-family: Verdana;
+      padding-top:10px;
+	
+}
+.clear {
+	clear: both;
+}
+a {
+	color: #000000;
+	text-decoration: none;
+}
+.font-color {
+	color: #F00;
+}
+table tr td {
+	border: 1px solid #999999;
+	font-size: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	text-align: center
+}
+
+/*---------------------------------------------------------------------------------------*/
+/*-----------------------------------------header----------------------------------------*/
+
+#header {
+	width: 750px;
+	height: 118px;
+	
+	margin: 0 auto;
+	background: url(../images/hbg_03.jpg) repeat-x;
+}
+.logo {float:left;
+       padding-left:10px;
+	padding-top: 20px;
+}
+.la{float:right;
+    display:block;
+	margin-top:20px;
+    margin-right:20px;
+			 
+			 font-size:12px;
+}
+.ad{float:right;
+     margin-top:0px;
+	 margin-right:20px;
+	 border:1px solid #ffffff;}
+.nav {margin:0 auto;
+	background-color: #ececec;
+	margin-top: 1px;
+	width: 750px;
+	height: 30px;
+}
+.nav ul li {
+	width: 125px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+	font-size: 14px;
+	color:#3c3c3c;
+	font-weight: 600;
+}
+.nav ul li a{color:#3c3c3c;}
+.nav ul li {
+	background: -moz-linear-gradient(top, #ffffff 0%, #cccccc 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #cccccc)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%, #cccccc 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%, #cccccc 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%, #cccccc 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%, #cccccc 100%); /* W3C */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc', GradientType=0 ); /* IE6-9 */
+}
+
+
+/*---------------------------------------------------------------------------------------*/
+/*----------------------------------------main------------------------------------------*/
+
+
+#main {
+	width: 750px;
+	margin: 0 auto;
+	margin-top:10px;
+	background-color: #ffffff;
+	padding-bottom: 50px;
+}
+.main-title{margin-left:20px;
+            margin-bottom:5px;}
+ .table-wrap {
+	width: 600px;
+	border: 1px solid #999999;
+	margin: 0 auto;
+	text-align: center;
+}
+.title {
+	font-size: 16px;
+	font-weight: 600;
+}
+.table-wrap > tbody:first-child>tr {
+	border-bottom: 1px solid #999999;
+}
+ .table-middle {
+	width: 506px;
+	border: 1px solid #999999;
+	margin: 0 auto;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.table-inside {
+	width: 500px;
+	border: 1px solid #999999;
+	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 15px;
+}
+
+.table-inside tbody tr >td:first-child {
+	width: 30%;
+	text-align: right;
+}
+.table-inside tbody tr >td:last-child {
+	text-align: left;
+}
+.bt td {
+	text-align: center !important;
+}
+
+/*---------------------------------------------------------------------------------------*/
+/*----------------------------------------footer-----------------------------------------*/
+
+#footer {
+	width: 750px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+#footer p {
+	color: #ffffff;
+	text-align: center;
+	font-size: 12px;
+}
+
+/*--------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------查询结果页-------------------------------------------*/
+.query-results {
+	width: 710px;
+	
+	margin: 0 auto;
+	border: 0px solid #cccccc;
+}
+.result td {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+
+/*--------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------查询详情页-------------------------------------------*/
+
+.detail-outer {width:610px;margin:0 auto;border:0px solid #cccccc;}
+.detail-inner2-w1{width:20px;}
+.detail-inner2-w2{width:300px;}
+.detail-inner2-w3{width:100px;}
+.detail-middle tr td{}
+.detail-inner1 tr td{width:100px;}
+.detail-inner2 {width:100%;height:250px;}
+
+/*--------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------类似群-------------------------------------------*/
+
+.similar-groups{width:500px;margin:0 auto;border:0px solid #cccccc;}
