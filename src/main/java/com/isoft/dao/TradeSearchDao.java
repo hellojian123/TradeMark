@@ -3,6 +3,7 @@ package com.isoft.dao;
 import com.isoft.bean.Trademark;
 import com.isoft.util.DaoUtils;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**

@@ -135,7 +135,7 @@ public class Trademark {
     }
 
     public void setImgPath(String imgPath) {
-        imgPath = imgPath;
+        this.imgPath = imgPath;
     }
 
     public String getServicesList() {
