@@ -62,4 +62,13 @@ public class WebUtils {
 		}
 	}
 
+	/**
+	 * 获得所产生的验证码。
+	 * @param request
+	 * @return
+	 */
+	public static String getValidateCode(HttpServletRequest request){
+		return request.getSession().getAttribute("rand").toString();
+	}
+
 }

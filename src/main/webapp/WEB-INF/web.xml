@@ -37,6 +37,38 @@
 		<servlet-name>AdminUpdateNewsAndPosterServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminUpdateNewsAndPosterServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>IndexUIServlet</servlet-name>
+		<servlet-class>com.isoft.web.IndexUIServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ValidationCode</servlet-name>
+		<servlet-class>com.isoft.util.ValidationCode</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CodeValidationServlet</servlet-name>
+		<servlet-class>com.isoft.web.CodeValidationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>QueryResultListServlet</servlet-name>
+		<servlet-class>com.isoft.web.QueryResultListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryResultListServlet</servlet-name>
+		<url-pattern>/queryResultList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CodeValidationServlet</servlet-name>
+		<url-pattern>/doValidateSearchCode</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ValidationCode</servlet-name>
+		<url-pattern>/getValidationCode</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>IndexUIServlet</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<url-pattern>/admin/login</url-pattern>
