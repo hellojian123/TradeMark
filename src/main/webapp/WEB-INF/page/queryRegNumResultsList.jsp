@@ -15,7 +15,6 @@
 	<title>中国商标网</title>
 	<link rel="stylesheet" href="${ctx}/matter/css/style.css" media="screen"  type="text/css"/>
 	<link rel="stylesheet" href="${ctx}/matter/css/reset.css" media="screen"  type="text/css"/>
-
 </head>
 <body>
 
