@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>风靡网络后台管理系统</title>
+		<title>后台管理系统</title>
 		<%@include file="/common/common.jsp"%>
 		<script type="text/javascript" src="${ctx}/js/simpla.jquery.configuration.js"></script>
 		<script>
@@ -41,45 +41,20 @@
 			<ul id="main-nav">
 				<li>
 					<a href="#" class="nav-top-item">
-						首页管理
+						商标管理
 					</a>
 					<ul>
-							<li><a href="javascript:load('${ctx}/admin/goInPosterManage?type=1')">广告管理</a></li>
+							<li><a href="javascript:load('${ctx}/admin/AdminTrademarkListServlet')">商标列表</a></li>
 					</ul>
 				</li>
-				<li>
-					<a href="#" class="nav-top-item">
-						企业管理
-					</a>
-					<ul>
-							<li><a href="javascript:load('${ctx}/admin/userVipManagerUI?currentPage=1&isCompanyShow=0')">会员管理</a></li>
-							<li><a href="javascript:load('${ctx}/admin/goIntoCompanyList?currentPage=1&isCompanyShow=3')">企业列表</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" class="nav-top-item">
-						内容管理
-					</a>
-					<ul>
-							<li><a href="javascript:load('${ctx}/admin/article?currentPage=1')">文章管理</a></li>
-							<li><a href="javascript:load('${ctx}/admin/friendLinksUI')">友情链接管理</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" class="nav-top-item">
-						我的资料
-					</a>
-					<ul>
-							<li><a href="javascript:load('${ctx}/admin/user/updatepwdUI')">修改密码</a></li>
-					</ul>
-				</li>
+
 				<c:if test="${admin.adminType==2}">
 					<li>
 						<a href="#" class="nav-top-item">
 							系统设置
 						</a>
 						<ul>
-							<li><a href="javascript:load('${ctx}/admin/userManagerUI?curPage=1');">用户列表</a></li>
+                            <li><a href="javascript:load('${ctx}/admin/user/updatepwdUI')">修改密码</a></li>
 						</ul>
 					</li>    
 				</c:if>
@@ -107,25 +82,7 @@
 				</c:if>
 			</p>
 			
-			<ul class="shortcut-buttons-set">
-				
-				<li><a class="shortcut-button" href="javascript:load('${ctx}/admin/updateNewsAndPoster')"><span>
-					<img src="${ctx}/images/icons/image_add_48.png" alt="icon" /><br />
-					更新首页图片
-				</span></a></li>
-				
-				<li><a class="shortcut-button" href="javascript:load('${ctx}/admin/article')"><span>
-					<img src="${ctx}/images/icons/pencil_48.png" alt="icon" /><br />
-					发布文章
-				</span></a></li>
-				
-				<li><a class="shortcut-button" href="javascript:load('${ctx}/admin/user/updatepwdUI')"><span>
-					<img src="${ctx}/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
-					修改密码
-				</span></a></li>
-				
-			</ul>
-			
+
 			<div class="clear"></div>
 			<div class="content-box">
 				<div class="content-box-header">				

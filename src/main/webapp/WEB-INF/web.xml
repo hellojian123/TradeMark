@@ -25,6 +25,10 @@
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminLoginServlet</servlet-class>
 	</servlet>
+    <servlet>
+		<servlet-name>AdminAddOrUpdateTrademarkServlet</servlet-name>
+		<servlet-class>com.isoft.web.AdminAddOrUpdateTrademarkServlet</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>AdminPosterUIServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminPosterUIServlet</servlet-class>
@@ -37,7 +41,27 @@
 		<servlet-name>AdminUpdateNewsAndPosterServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminUpdateNewsAndPosterServlet</servlet-class>
 	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>AdminGetTrademarkByIdServlet</servlet-name>
+        <servlet-class>com.isoft.web.AdminGetTrademarkByIdServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminTrademarkListServlet</servlet-name>
+        <servlet-class>com.isoft.web.AdminTrademarkListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminTrademarkListServlet</servlet-name>
+        <url-pattern>/admin/AdminTrademarkListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminGetTrademarkByIdServlet</servlet-name>
+        <url-pattern>/admin/AdminGetTrademarkByIdServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddOrUpdateTrademarkServlet</servlet-name>
+        <url-pattern>/admin/AdminAddOrUpdateTrademarkServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<url-pattern>/admin/login</url-pattern>
 	</servlet-mapping>
@@ -89,6 +113,10 @@
 		<display-name>sessionListener</display-name>
 		<listener-class>com.isoft.listener.CreateSessionListener</listener-class>
 	</listener>
+    <listener>
+        <display-name>WebInitListener</display-name>
+        <listener-class>com.isoft.listener.WebInitListener</listener-class>
+    </listener>
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>com.isoft.filter.CharacterEncodingFilter</filter-class>
