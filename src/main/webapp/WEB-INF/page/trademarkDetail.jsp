@@ -83,9 +83,12 @@
 								<td class="detail-inner2-w1">
 									商品 ／ 服务列表</td>
 								<td class="detail-inner2-w3">
-
-									${tm.servicesList}
-
+                                    <c:if test="${fn:length(ht:delHTMLTag(tm.servicesList))>18 }" >
+                                        ${fn:substring(ht:delHTMLTag(tm.servicesList),0,18) }...
+                                    </c:if>
+                                    <c:if test="${fn:length(ht:delHTMLTag(tm.servicesList))<=18 }" >
+                                        ${ht:delHTMLTag(tm.servicesList)}
+                                    </c:if>
 									<br >
 									<a href="#" target="_blank">
 										<span class="font-color">查看详细信息 ...</span></a>
