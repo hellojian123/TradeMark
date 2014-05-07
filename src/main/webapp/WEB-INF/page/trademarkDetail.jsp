@@ -34,15 +34,15 @@
 								<td >
 									注册号/申请号 </td>
 								<td  >
-									9023455</td>
+									${tm.applyNum}</td>
 								<td >
 									国际分类号 </td>
 								<td  >
-									39</td>
+									${tm.classificationNum}</td>
 								<td  >
 									申请日期</td>
 								<td>
-									2011-01-05</td>
+									<fmt:formatDate value="${tm.applyDate}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
 							<tr>
 						</table>
 					</td>
@@ -51,22 +51,22 @@
 					<td  >
 						申请人名称(中文)</td>
 					<td  >
-						双流鹿溪农业旅游观光专业合作社</td>
+						${tm.applicantNameZh}</td>
 					<td  >
 						申请人地址(中文)</td>
 					<td  >
-						四川省成都市双流县兴隆镇天明村二组</td>
+                        ${tm.applicantAddressZh}</td>
 				</tr>
 				<tr>
 					<td  >
 						申请人名称(英文)</td>
-					<td  >&nbsp;
-
+					<td  >
+                        ${tm.applicantNameEn}
 					</td>
 					<td  >
 						申请人地址(英文)</td>
-					<td  >&nbsp;
-
+					<td  >
+                        ${tm.applicantAddressEn}
 					</td>
 				</tr>
 				<tr>
@@ -77,14 +77,14 @@
 									商标图像</td>
 								<td  class="detail-inner2-w2">
 									<a href="" target="_blank">
-										<img  src=""alt="商标名图像">
+										<img  src="${tm.imgPath}"alt="商标名图像">
 									</a>
 								</td>
 								<td class="detail-inner2-w1">
 									商品 ／ 服务列表</td>
 								<td class="detail-inner2-w3">
 
-									旅行陪伴;安排游艇旅行;观光旅游;安排游览;旅游安排;旅行座位预订;旅行预订;旅行社(不包括预定旅馆);导游;
+									${tm.servicesList}
 
 									<br >
 									<a href="#" target="_blank">
@@ -95,7 +95,7 @@
 									类似群</td>
 								<td  class="detail-inner2-w1">
 
-									3911
+									${tm.similarGroup}
 
 								</td>
 							</tr>
@@ -106,22 +106,26 @@
 					<td  >
 						初审公告期号</td>
 					<td  >
-						1307</td>
+                        ${tm.firstNoticeNum}
+				    </td>
 					<td  >
 						注册公告期号</td>
 					<td  >
-						1319</td>
+                        ${tm.registerNoticeNum}
+				    </td>
 
 				</tr>
 				<tr>
 					<td  >
 						初审公告日期</td>
 					<td  >
-						2012-04-13</td>
+                        <fmt:formatDate value="${tm.firstNoticeDate}" pattern="yyyy-MM-dd"></fmt:formatDate>
+					</td>
 					<td  >
 						注册公告日期</td>
 					<td  >
-						2012-07-14</td>
+					    <fmt:formatDate value="${tm.registerNoticeDate}" pattern="yyyy-MM-dd"></fmt:formatDate>
+                    </td>
 
 				</tr>
 				<tr>
@@ -129,7 +133,7 @@
 						专用权期限</td>
 					<td colspan=2  >
 
-						2012年07月14日    至    2022年07月13日</td>
+						<fmt:formatDate value="${tm.exclusiveRightStartDate}" pattern="yyyy-MM-dd"/>    至    <fmt:formatDate value="${tm.exclusiveRightEndDate}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						年
 					</td>
@@ -138,13 +142,13 @@
 				<tr>
 					<td  >
 						后期指定日期</td>
-					<td  >&nbsp;
-
+					<td  >
+                        <fmt:formatDate value="${tm.afterNamedDate}" pattern="yyyy-MM-dd"></fmt:formatDate>
 					</td>
 					<td  >
 						国际注册日期</td>
-					<td  >&nbsp;
-
+					<td  >
+                        <fmt:formatDate value="${tm.internationalRegisterDate}" pattern="yyyy-MM-dd"></fmt:formatDate>
 					</td>
 
 				</tr>
@@ -153,38 +157,44 @@
 					<td >
 						优先权日期</td>
 					<td >
-						无</td>
+                        <c:if test="${empty tm.priorityDate}">无</c:if>
+                        <c:if test="${!empty tm.priorityDate}">
+                            <fmt:formatDate value="${tm.priorityDate}" pattern="yyyy-MM-dd"></fmt:formatDate>
+                        </c:if>
+					</td>
 					<td >
 						代理人名称</td>
 					<td  >
-						北京明涛知识产权代理有限公司</td>
+					    ${tm.agentName}
+                    </td>
 
 				</tr>
 				<tr>
 					<td >
 						指定颜色</td>
 					<td  >&nbsp;
-
+                        ${tm.specifyColor}
 					</td>
 					<td  >
 						商标类型</td>
 					<td  >
-						普通商标</td>
+                           ${tm.trademarkType}
+				    </td>
 
 				</tr>
 				<tr>
 					<td>
 						是否共有商标</td>
 					<td  >
-
-						否
+                        <c:if test="${tm.share==true}">是</c:if>
+                        <c:if test="${tm.share==false}">否</c:if>
 
 					</td>
 					<td  >
 						备注</td>
 					<td  >
 							<span class="font-color">
-
+                                ${tm.remarks}
 							</span>
 					</td>
 
@@ -195,7 +205,9 @@
 
 					</td>
 					<td colspan=3  >
-						<a  href=""></a>
+						<a  href="">
+                            ${tm.trademarkProcess}
+						</a>
 					</td>
 
 				</tr>
@@ -206,21 +218,14 @@
 	<tr>
 		<td>
 
-			<a href="#" >前一页</a>
-
-
-			<a href="#" >后一页</a>
-
 
 		</td>
 	</tr>
 	<tr><td><span class="font-color">仅供参考，无任何法律效力，请核实后使用</span></td></tr>
 	<tr>
-		<td>
-			<input type="button"value=" 打 印 " title=" 打 印 " >
-
-			<input type="button"value=" 关 闭 " title=" 关 闭 ">
-
+		<td >
+			<input type="button"value=" 打 印 " title=" 打 印 " onclick="window.print()" >
+			<input type="button"value=" 关 闭 " title=" 关 闭 " onclick="window.close()">
 		</td>
 	</tr>
 	</table>

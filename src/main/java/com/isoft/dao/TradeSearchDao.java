@@ -190,4 +190,16 @@ public class TradeSearchDao {
             return null;
         }
     }
+    /**
+     * 根据id查询出详细的商标信息
+     */
+    public Trademark findById(Integer id){
+        String sql="select * from t_trademark where id =?";
+        try {
+            return DaoUtils.find(sql,Trademark.class,id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

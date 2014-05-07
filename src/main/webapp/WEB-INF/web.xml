@@ -37,7 +37,18 @@
 		<servlet-name>AdminUpdateNewsAndPosterServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminUpdateNewsAndPosterServlet</servlet-class>
 	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>TrademarkDetailServlet</servlet-name>
+        <servlet-class>com.isoft.web.TrademarkDetailServlet</servlet-class>
+    </servlet>
+
+
+
+    <servlet-mapping>
+        <servlet-name>TrademarkDetailServlet</servlet-name>
+        <url-pattern>/page/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<url-pattern>/admin/login</url-pattern>
 	</servlet-mapping>
