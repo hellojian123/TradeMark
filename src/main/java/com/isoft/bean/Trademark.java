@@ -12,15 +12,17 @@ public class Trademark {
     private String applyNum;
     /**国际分类号**/
     private int classificationNum;
+    /** 商标名称 **/
+    private String trademarkName;
     /**申请日期**/
     private Date applyDate;
     /**申请人名称（中文）**/
     private String applicantNameZh;
-    /**申请人名称（英文）**/
+    /**申请人名称（英文）,选填项**/
     private String applicantNameEn;
     /**申请人地址（中文）**/
     private String applicantAddressZh;
-    /**申请人地址（英文）**/
+    /**申请人地址（英文）,选填项**/
     private String applicantAddressEn;
     /**商标图像**/
     private String imgPath;
@@ -40,27 +42,24 @@ public class Trademark {
     private Date exclusiveRightStartDate;
     /**专用权期限结束日期**/
     private Date exclusiveRightEndDate;
-    /**后期指定日期**/
+    /**后期指定日期 ,选填项**/
     private Date afterNamedDate;
-    /**国际注册日期**/
+    /**国际注册日期 ,选填项**/
     private Date internationalRegisterDate;
-    /**优先权日期**/
+    /**优先权日期,选填项**/
     private Date priorityDate;
     /**代理人名称**/
     private String agentName;
-    /**指定颜色**/
+    /**指定颜色,选填项**/
     private String specifyColor;
     /**商标类型**/
     private String trademarkType;
-    /**是否共有商标**/
+    /**是否共有商标,选填项**/
     private boolean share;
-    /**备注**/
+    /**备注,选填项**/
     private String remarks;
-    /**商标流程**/
+    /**商标流程,选填项**/
     private String trademarkProcess;
-
-    /** 商标注册名 **/
-    private String trademarkName;
 
     public String getTrademarkName() {
         return trademarkName;

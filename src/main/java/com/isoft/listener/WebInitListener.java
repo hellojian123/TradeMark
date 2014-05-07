@@ -29,7 +29,7 @@ public class WebInitListener implements ServletContextListener {
 					if(v.trim().equals("")){
 						return null;
 					}
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					try {
 						Date date = sdf.parse(v);
 						return date;
