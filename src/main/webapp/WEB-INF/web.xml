@@ -25,6 +25,10 @@
 		<servlet-name>AdminLoginServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminLoginServlet</servlet-class>
 	</servlet>
+    <servlet>
+		<servlet-name>AdminAddOrUpdateTrademarkServlet</servlet-name>
+		<servlet-class>com.isoft.web.AdminAddOrUpdateTrademarkServlet</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>AdminPosterUIServlet</servlet-name>
 		<servlet-class>com.isoft.web.AdminPosterUIServlet</servlet-class>
@@ -38,18 +42,71 @@
 		<servlet-class>com.isoft.web.AdminUpdateNewsAndPosterServlet</servlet-class>
 	</servlet>
     <servlet>
+<<<<<<< HEAD
+        <servlet-name>AdminGetTrademarkByIdServlet</servlet-name>
+        <servlet-class>com.isoft.web.AdminGetTrademarkByIdServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminTrademarkListServlet</servlet-name>
+        <servlet-class>com.isoft.web.AdminTrademarkListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminTrademarkListServlet</servlet-name>
+        <url-pattern>/admin/AdminTrademarkListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminGetTrademarkByIdServlet</servlet-name>
+        <url-pattern>/admin/AdminGetTrademarkByIdServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddOrUpdateTrademarkServlet</servlet-name>
+        <url-pattern>/admin/AdminAddOrUpdateTrademarkServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+		<servlet-name>AdminLoginServlet</servlet-name>
+=======
         <servlet-name>TrademarkDetailServlet</servlet-name>
         <servlet-class>com.isoft.web.TrademarkDetailServlet</servlet-class>
     </servlet>
-
-
-
     <servlet-mapping>
         <servlet-name>TrademarkDetailServlet</servlet-name>
         <url-pattern>/page/detail</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-		<servlet-name>AdminLoginServlet</servlet-name>
+	<servlet>
+		<servlet-name>IndexUIServlet</servlet-name>
+		<servlet-class>com.isoft.web.IndexUIServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ValidationCode</servlet-name>
+		<servlet-class>com.isoft.util.ValidationCode</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CodeValidationServlet</servlet-name>
+		<servlet-class>com.isoft.web.CodeValidationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>QueryResultListServlet</servlet-name>
+		<servlet-class>com.isoft.web.QueryResultListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryResultListServlet</servlet-name>
+		<url-pattern>/queryResultList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CodeValidationServlet</servlet-name>
+		<url-pattern>/doValidateSearchCode</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ValidationCode</servlet-name>
+		<url-pattern>/getValidationCode</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>IndexUIServlet</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>AdminLoginServlet</servlet-name>
+>>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02
 		<url-pattern>/admin/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
@@ -100,6 +157,10 @@
 		<display-name>sessionListener</display-name>
 		<listener-class>com.isoft.listener.CreateSessionListener</listener-class>
 	</listener>
+    <listener>
+        <display-name>WebInitListener</display-name>
+        <listener-class>com.isoft.listener.WebInitListener</listener-class>
+    </listener>
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>com.isoft.filter.CharacterEncodingFilter</filter-class>
