@@ -190,6 +190,7 @@ public class TrademarkDao {
             return null;
         }
     }
+<<<<<<< HEAD:src/main/java/com/isoft/dao/TrademarkDao.java
 
     /**
      * 分页
@@ -202,10 +203,21 @@ public class TrademarkDao {
             String sql="select * from t_trademark limit ?,?";
             return DaoUtils.findAll(sql, Trademark.class, pageSize * (currentPage - 1), pageSize);
         } catch (SQLException e) {
+=======
+    /**
+     * 根据id查询出详细的商标信息
+     */
+    public Trademark findById(Integer id){
+        String sql="select * from t_trademark where id =?";
+        try {
+            return DaoUtils.find(sql,Trademark.class,id);
+        }catch (Exception e){
+>>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02:src/main/java/com/isoft/dao/TradeSearchDao.java
             e.printStackTrace();
             return null;
         }
     }
+<<<<<<< HEAD:src/main/java/com/isoft/dao/TrademarkDao.java
 
     /**
      * 保存商标信息
@@ -285,4 +297,6 @@ public class TrademarkDao {
         }
     }
 
+=======
+>>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02:src/main/java/com/isoft/dao/TradeSearchDao.java
 }
