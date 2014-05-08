@@ -21,7 +21,7 @@
 	<table class="query-results" border="0" cellspacing="0" cellpadding="0" >
 		<tr>
 			<td   colspan="5" > 查询结果(查到1条记录)（点击注册号/申请号或类号可以看详细信息） <br>
-				查询内容是: 类号是：39;注册号是：9023455; </td>
+				查询内容是: 类号是：${classificationNum};注册号是：${applyNum}; </td>
 		</tr>
 		<tr class="result">
 			<td  > 序号 </td>
@@ -31,18 +31,18 @@
 			<td > 申请人 </td>
 		</tr>
 		<tr class="result">
-			<td > 2 </td>
-			<td ><a href="#"> 9023455 </a></td>
-			<td ><a href="#"> 39 </a></td>
-			<td ><a href="#"> 鹿溪</a></td>
-			<td><a href="#"> 双流鹿溪农业旅游观光专业合作社</a></td>
+			<td > 1 </td>
+			<td ><a href="#"> ${trademark.applyNum} </a></td>
+			<td ><a href="#"> ${trademark.classificationNum} </a></td>
+			<td ><a href="#">${trademark.trademarkName}</a></td>
+			<td><a href="#"> ${trademark.applicantNameZh}</a></td>
 		</tr>
 		<tr>
 			<td  colspan="5"><span class="font-color">仅供参考，无任何法律效力，请核实后使用</span></td>
 		</tr>
 		<tr>
-			<td  colspan="5"><input type="button" value=" 打 印 " title=" 打 印 " >
-				<input type="button" value=" 关 闭" title=" 关 闭 "></td>
+			<td  colspan="5"><input type="button" value=" 打 印 " title=" 打 印 " onclick="window.print()">
+				<input type="button" value=" 关 闭" title=" 关 闭 " onclick="window.close()"></td>
 		</tr>
 	</table>
 
