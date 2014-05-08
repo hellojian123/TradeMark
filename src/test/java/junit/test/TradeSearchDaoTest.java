@@ -1,6 +1,5 @@
 package junit.test;
 
-import com.isoft.dao.TradeSearchDao;
 
 /**
  * Created by admin on 14-5-5.
@@ -9,7 +8,6 @@ import com.isoft.dao.TradeSearchDao;
 public class TradeSearchDaoTest {
 
     public void test(){
-        TradeSearchDao tsd=new TradeSearchDao();
 
 
     }

@@ -2,8 +2,6 @@ package com.isoft.listener;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
-import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.text.ParseException;
@@ -17,6 +15,7 @@ import java.util.Date;
 public class WebInitListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
+
 		//注册日期转换器
 		ConvertUtils.register(new Converter() {
 			@Override

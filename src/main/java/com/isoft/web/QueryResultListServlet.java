@@ -26,9 +26,9 @@ public class QueryResultListServlet extends HttpServlet {
 		String applicantNameZh = request.getParameter("applicantNameZh");			//申请人名称(中文)
 		String applicantNameEn = request.getParameter("applicantNameEn");			//申请人名称(英文)
 
-		Integer selectTN = Integer.parseInt(request.getParameter("selectTN"));		//商品名称的模糊查询类型(0前包含,1精确,2包含)
-		Integer selectCHPN = Integer.parseInt(request.getParameter("selectCHPN"));	//申请人名称(中文)的模糊查询类型(前包含,精确,包含)
-		Integer selectENGPN = Integer.parseInt(request.getParameter("selectENGPN"));//申请人名称(英文)的模糊查询类型(0前包含,1精确,2包含)
+		int selectTN = Integer.parseInt(request.getParameter("selectTN"));		//商品名称的模糊查询类型(0前包含,1精确,2包含)
+		int selectCHPN = Integer.parseInt(request.getParameter("selectCHPN"));	//申请人名称(中文)的模糊查询类型(0前包含,1精确,2包含)
+		int selectENGPN = Integer.parseInt(request.getParameter("selectENGPN"));//申请人名称(英文)的模糊查询类型(0前包含,1精确,2包含)
 
 		request.setAttribute("applyNum",applyNum);
 		request.setAttribute("trademarkName",trademarkName);
@@ -41,8 +41,8 @@ public class QueryResultListServlet extends HttpServlet {
         TrademarkService ts=new TrademarkService();
         int total=0;
         List<Trademark> trademarkList=null;
-        int currentPage=Integer.parseInt((request.getParameter("currentPage") == null) ? "1" : request.getParameter("currentPage"));
-        int pageSize=1;//每页显示的条数
+        int currentPage=Integer.parseInt((request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().equals("")) ? "1" : request.getParameter("currentPage"));
+        int pageSize=10;//每页显示的条数
         PageModel<Trademark> pm=null;
         int type=-1;
         if(applyNum!=null&&!applyNum.trim().equals("")){
@@ -55,61 +55,42 @@ public class QueryResultListServlet extends HttpServlet {
 			return;
 		}
 
-        if (trademarkName!=null&&!trademarkName.trim().equals("")&&selectTN==1){//精确查询商标名
-            total=ts.getTotalByTradeName(trademarkName);
-            pm=new PageModel<Trademark>(total,pageSize);
-            if(currentPage>pm.getMaxPage()){
-                currentPage=pm.getMaxPage();
-            }
-            type=selectTN;
-            trademarkList=ts.pagingTNameBySql(pageSize, currentPage, trademarkName);
-        }
-        if(trademarkName!=null&&!trademarkName.trim().equals("")&&(selectTN==0||selectTN==2)){//模糊查询商标名
-            total=ts.getTotalByLikeTradeName(trademarkName);
-            pm=new PageModel<Trademark>(total,pageSize);
-            if(currentPage>pm.getMaxPage()){
-                currentPage=pm.getMaxPage();
-            }
-            trademarkList=ts.pagingLikeTNameBySql(pageSize, currentPage, trademarkName);
-            type=selectTN;
-        }
-        if (applicantNameZh!=null&&!applicantNameZh.trim().equals("")&&selectCHPN==1){//精确中文名查询
-            total=ts.getTotalByCHPName(applicantNameZh);
-            pm=new PageModel<Trademark>(total,pageSize);
-            if(currentPage>pm.getMaxPage()){
-                currentPage=pm.getMaxPage();
-            }
-            trademarkList=ts.pagingCHNameBySql(pageSize, currentPage, applicantNameZh);
-            type=selectTN;
-        }
-        if (applicantNameZh!=null&&!applicantNameZh.trim().equals("")&&(selectCHPN==0||selectCHPN==2)){//模糊中文名查询
-            total=ts.getTotalByLikeCHPName(applicantNameZh);
-            pm=new PageModel<Trademark>(total,pageSize);
-            if(currentPage>pm.getMaxPage()){
-                currentPage=pm.getMaxPage();
-            }
-            trademarkList=ts.pagingLikeCHNameBySql(pageSize, currentPage, applicantNameZh);
-            type=selectTN;
-        }
+		/*按商标名称分页查询*/
+		if(trademarkName!=null&&!trademarkName.trim().equals("")){
+			String sqlQueryFeild = "trademarkName";
+			total = ts.getTotalByCondition(sqlQueryFeild,trademarkName,selectTN);
+			pm = new PageModel<Trademark>(total,pageSize);
+			if(currentPage>pm.getMaxPage()){
+				currentPage=pm.getMaxPage();
+			}
+			trademarkList=ts.pageGetTrademarks(pageSize, currentPage,sqlQueryFeild,trademarkName,selectTN);
+			type=selectTN;
+		}
 
-        if (applicantNameEn!=null&&!applicantNameEn.trim().equals("")&&selectENGPN==1){//精确en名查询
-            total=ts.getTotalByENGPName(applicantNameEn);
-            pm=new PageModel<Trademark>(total,pageSize);
-            if(currentPage>pm.getMaxPage()){
-                currentPage=pm.getMaxPage();
-            }
-            trademarkList=ts.pagingENNameBySql(pageSize, currentPage, applicantNameEn);
-            type=selectTN;
-        }
-        if (applicantNameEn!=null&&!applicantNameEn.trim().equals("")&&(selectENGPN==0||selectENGPN==2)){//模糊en名查询
-            total=ts.getTotalByENGPName(applicantNameEn);
-            pm=new PageModel<Trademark>(total,pageSize);
-            if(currentPage>pm.getMaxPage()){
-                currentPage=pm.getMaxPage();
-            }
-            trademarkList=ts.pagingLikeENNameBySql(pageSize, currentPage, applicantNameEn);
-            type=selectTN;
-        }
+		/*按申请人名称(中文)分页查询*/
+		if(applicantNameZh!=null&&!applicantNameZh.trim().equals("")){
+			String sqlQueryFeild = "applicantNameZh";
+			total = ts.getTotalByCondition(sqlQueryFeild,applicantNameZh,selectCHPN);
+			pm = new PageModel<Trademark>(total,pageSize);
+			if(currentPage>pm.getMaxPage()){
+				currentPage=pm.getMaxPage();
+			}
+			trademarkList=ts.pageGetTrademarks(pageSize, currentPage,sqlQueryFeild,applicantNameZh,selectCHPN);
+			type=selectCHPN;
+		}
+
+		/*按申请人名称(英文)分页查询*/
+		if(applicantNameEn!=null&&!applicantNameEn.trim().equals("")){
+			String sqlQueryFeild = "applicantNameEn";
+			total = ts.getTotalByCondition(sqlQueryFeild,applicantNameEn,selectENGPN);
+			pm = new PageModel<Trademark>(total,pageSize);
+			if(currentPage>pm.getMaxPage()){
+				currentPage=pm.getMaxPage();
+			}
+			trademarkList=ts.pageGetTrademarks(pageSize, currentPage,sqlQueryFeild,applicantNameEn,selectENGPN);
+			type=selectENGPN;
+		}
+
         pm.setResult(trademarkList);
         request.setAttribute("pm",pm);
         request.setAttribute("type",type);

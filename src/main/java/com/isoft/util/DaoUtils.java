@@ -184,7 +184,7 @@ public class DaoUtils {
     }
 
     /**
-     * 需要手动释放
+     * 根据条件查询总数，需要手动释放链接
      * @param whereSql
      * @param clazz
      * @param <T>
@@ -211,7 +211,7 @@ public class DaoUtils {
 	}
 
     /**
-     * 按照自定义Sql查询
+     * 按照自定义Sql查询总数
      * @param whereSql
      * @param clazz
      * @param <T>
