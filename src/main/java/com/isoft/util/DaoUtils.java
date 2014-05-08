@@ -178,10 +178,23 @@ public class DaoUtils {
 	 * @throws SQLException
 	 */
 	public static <T> Integer findCount(String tableName,Class<T> clazz) throws SQLException {
-		String sql = "select count(*) from " + tableName ;
-		qr = new QueryRunner();
-		return ((Long)qr.query(JdbcUtils.getConnection(),sql, new ScalarHandler<T>(1))).intValue();
-	}
+        String sql = "select count(*) from " + tableName ;
+        qr = new QueryRunner();
+        return ((Long)qr.query(JdbcUtils.getConnection(),sql, new ScalarHandler<T>(1))).intValue();
+    }
+
+    /**
+     * 根据条件查询总数，需要手动释放链接
+     * @param whereSql
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws SQLException
+     */
+    public static <T> Integer findCountByCondition(String whereSql,Class<T> clazz,Object... params) throws SQLException {
+        qr = new QueryRunner();
+        return ((Long)qr.query(JdbcUtils.getConnection(),whereSql, new ScalarHandler<T>(1),params)).intValue();
+    }
 
 	/**
 	 * 查询表中记录的条数
@@ -196,6 +209,20 @@ public class DaoUtils {
 		qr = new QueryRunner(JdbcUtils.getDataSource());
 		return ((Long)qr.query(sql, new ScalarHandler<T>(1))).intValue();
 	}
+
+    /**
+     * 按照自定义Sql查询总数
+     * @param whereSql
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws SQLException
+     */
+    public static <T> Integer searchCountByCondition(String whereSql,Class<T> clazz,Object... params) throws SQLException {
+
+        qr = new QueryRunner(JdbcUtils.getDataSource());
+        return ((Long)qr.query(whereSql, new ScalarHandler<T>(1),params)).intValue();
+    }
 
 	/**
 	 * 批处理

@@ -32,6 +32,9 @@ public class TrademarkService {
      * @return
      */
     public Trademark getById(int id){
+        if (id==0){
+            return null;
+        }
         return trademarkDao.getById(id);
     }
 
@@ -43,6 +46,19 @@ public class TrademarkService {
      */
     public List<Trademark> pagingBySql(int pageSize,int currentPage){
         return trademarkDao.pagingBySql(pageSize,currentPage);
+    }
+
+	/**
+	 * 分页查询trademark
+	 * @param pageSize
+	 * @param currentPage
+	 * @param sqlQueryFeild
+	 * @param queryContent
+	 * @param selectCondition
+	 * @return
+	 */
+    public List<Trademark> pageGetTrademarks(int pageSize, int currentPage, String sqlQueryFeild, String queryContent, Integer selectCondition){
+        return trademarkDao.pagingQueryByCondition(pageSize, currentPage,sqlQueryFeild,queryContent,selectCondition);
     }
 
     /**
@@ -60,4 +76,21 @@ public class TrademarkService {
     public int deleteObj(String ids){
         return trademarkDao.deleteObj(ids);
     }
+    /*
+     * 根据商标注册号查询
+     */
+    public  Trademark findByApplyNum(String applyNum){
+        if (applyNum==null){
+            return null;
+        }
+        return trademarkDao.findByApplyNum(applyNum);
+    }
+
+	public int getTotalByCondition(String sqlQueryfieldName, String condition, Integer selectCondition) {
+		if(condition==null||condition.trim().equals("")){
+			return 0;
+		}
+		return trademarkDao.getCountByCondition(sqlQueryfieldName,condition,selectCondition);
+	}
+
 }

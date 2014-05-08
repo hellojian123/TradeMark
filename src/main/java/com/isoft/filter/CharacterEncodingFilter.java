@@ -66,6 +66,10 @@ public class CharacterEncodingFilter implements Filter {
 					return null;
 				}
 
+				if(value.equals(new String(value.getBytes(tempCharset),tempCharset))){ //如果本身就是需要的这个编码，就不需转码，直接返回
+					return value;
+				}
+
 				return new String(value.getBytes("ISO-8859-1"), tempCharset);
 			}
 		}),response);

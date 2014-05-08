@@ -12,36 +12,6 @@ import java.util.List;
 public class TrademarkDao {
 
     /**
-     *   根据商标注册名模糊查询，返回列表
-     *   @return List
-     */
-    public List<Trademark> findByTrademarkLikeName(String trademarkName){
-        String sql="select * from t_trademark where trademarkName like %?%";
-        try{
-            return DaoUtils.findAll(sql,Trademark.class,trademarkName);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    /**
-     *   根据商标注册名查询，返回列表
-     *   @return List
-     */
-    public List<Trademark> findByTrademarkName(String trademarkName){
-        String sql="select * from t_trademark where trademarkName = ?";
-        try{
-            return DaoUtils.findAll(sql,Trademark.class,trademarkName);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    /**
      *  根据商标注册号查询，返回trademark对象
      * @param applyNum
      * @return trademark
@@ -56,66 +26,6 @@ public class TrademarkDao {
         }
     }
 
-    /**
-     *  根据商标注册人中文模糊查询
-     * @param applicantNameZh
-     * @return
-     */
-    public List<Trademark> findByLikeApplicantNameZh(String applicantNameZh){
-        String sql="select * from t_trademark where applicantNameZh like %?%";
-        try{
-            return DaoUtils.findAll(sql,Trademark.class,applicantNameZh);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     *  根据商标注册人中文名精确查询
-     * @param applicantNameZh
-     * @return
-     */
-    public List<Trademark> findByApplicantNameZh(String applicantNameZh){
-        String sql="select * from t_trademark where applicantNameZh =?";
-        try{
-            return DaoUtils.findAll(sql, Trademark.class,applicantNameZh);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    /**
-     *  根据商标注册人en文模糊查询
-     * @param applicantNameEn
-     * @return
-     */
-    public List<Trademark> findByLikeApplicantNameEn(String applicantNameEn){
-        String sql="select * from t_trademark where applicantNameEh like %?%";
-        try{
-            return DaoUtils.findAll(sql,Trademark.class,applicantNameEn);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     *  根据商标注册人en文名精确查询
-     * @param applicantNameEn
-     * @return
-     */
-    public List<Trademark> findByApplicantNameEn(String applicantNameEn){
-        String sql="select * from t_trademark where applicantNameEn =?";
-        try{
-            return DaoUtils.findAll(sql, Trademark.class,applicantNameEn);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
     /**
      *
      *  根据注册号/申请号   国际分类号 查询商标信息
@@ -190,6 +100,7 @@ public class TrademarkDao {
             return null;
         }
     }
+
     /**
      * 分页
      * @param pageSize 每页显示的条数
@@ -205,6 +116,7 @@ public class TrademarkDao {
             return null;
         }
     }
+
     /**
      * 根据id查询出详细的商标信息
      */
@@ -318,4 +230,78 @@ public class TrademarkDao {
         }
     }
 
+
+	/**
+	 * 根据条件查出总数
+	 * @param
+	 * @param
+	 * @return
+	 */
+	public int getCountByCondition(String sqlQueryfieldName,String condition, Integer selectCondition) {
+		if(condition==null||condition.trim().equals("")){
+			return 0;
+		}
+		String likeCondtition = null;
+		String sql = "select count(*) from t_trademark where "+sqlQueryfieldName;
+		if(selectCondition==0){	//前包含查询
+			likeCondtition =" like ?" ;
+			condition = condition+"%";
+		}
+		if(selectCondition==1){	//精确查询
+			likeCondtition = " = ?";
+		}
+		if(selectCondition==2){	//包含查询
+			likeCondtition = " like ?";
+			condition = "%"+condition+"%";
+		}
+		sql = sql+likeCondtition;
+		try {
+		    return DaoUtils.searchCountByCondition(sql,Trademark.class,condition);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	/**
+	 *	根据条件分页查询。注意sql语句间的空格
+	 * @param pageSize
+	 * @param currentPage
+	 * @param sqlQueryFeild
+	 *@param queryContent
+	 * @param selectCondition   @return
+	 */
+	public List<Trademark> pagingQueryByCondition(int pageSize, int currentPage, String sqlQueryFeild, String queryContent, int selectCondition){
+
+		String likeCondtition = null;
+		String sql = "select * from t_trademark where "+sqlQueryFeild;
+		if(selectCondition==0){	//前包含查询
+			likeCondtition = " like ?";
+			queryContent = queryContent+"%";
+		}
+		if(selectCondition==1){	//精确查询
+			likeCondtition = " = ?";
+		}
+		if(selectCondition==2){	//包含查询
+			likeCondtition = " like ?";
+			queryContent = "%"+queryContent+"%";
+		}
+		sql = sql+likeCondtition+" limit ?,?";
+
+		if(currentPage>0){
+			currentPage=currentPage-1;
+		}
+		if(currentPage<0){
+			currentPage=0;
+		}
+
+		try {
+			return DaoUtils.findAll(sql,Trademark.class,queryContent,currentPage,pageSize);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
+
