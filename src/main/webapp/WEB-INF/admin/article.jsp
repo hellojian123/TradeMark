@@ -156,6 +156,7 @@
 						return false; 
 					}
 				);
+
 				$('tbody tr:even').addClass("alt-row");
 				$('.check-all').click(
 					function(){

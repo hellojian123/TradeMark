@@ -32,13 +32,12 @@ public class QueryResultListServlet extends HttpServlet {
 		request.setAttribute("selectTN",selectTN);
 		request.setAttribute("selectCHPN",selectCHPN);
 		request.setAttribute("selectENGPN",selectENGPN);
-		if(classificationNum!=null&&!classificationNum.trim().equals("")){
+		if(applyNum!=null&&!(applyNum.trim().equals(""))){
 			request.setAttribute("classificationNum",classificationNum);
 			request.getRequestDispatcher("/WEB-INF/page/queryRegNumResultsList.jsp").forward(request,response);
 			return;
 		}
 
 		request.getRequestDispatcher("/WEB-INF/page/generalQueryResultList.jsp").forward(request,response);
-
 	}
 }

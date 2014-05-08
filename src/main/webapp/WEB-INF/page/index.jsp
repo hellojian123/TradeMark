@@ -113,7 +113,7 @@
 						return;
 					}
 					/*校验成功，打开查询页面，然后在显示查询页面向后台请求相应的查询数据*/
-					var popupwindow = window.open("${ctx}/queryResultList?classificationNum="+classificationNum+
+					window.open("${ctx}/queryResultList?classificationNum="+classificationNum+
 					    "&applyNum="+applyNum+
 					    "&trademarkName="+trademarkName+
 					    "&applicantNameZh="+applicantNameZh+
@@ -123,9 +123,6 @@
 					    "&selectENGPN="+selectENGPN,"list",
 					    "left=100,top=20,width=820,height=700,scrollbars=yes,resizable=yes,location=no,status=no,resizable=no"
 					);
-
-
-
 
 				}
 			});
