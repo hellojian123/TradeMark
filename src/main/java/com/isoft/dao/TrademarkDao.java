@@ -16,7 +16,7 @@ public class TrademarkDao {
      *   @return List
      */
     public List<Trademark> findByTrademarkLikeName(String trademarkName){
-        String sql="select * from t_trademark where trademarkName like %?%";
+        String sql="select * from t_trademark where trademarkName like '%?%'";
         try{
             return DaoUtils.findAll(sql,Trademark.class,trademarkName);
         }catch (Exception e){
@@ -62,7 +62,7 @@ public class TrademarkDao {
      * @return
      */
     public List<Trademark> findByLikeApplicantNameZh(String applicantNameZh){
-        String sql="select * from t_trademark where applicantNameZh like %?%";
+        String sql="select * from t_trademark where applicantNameZh like '%?%'";
         try{
             return DaoUtils.findAll(sql,Trademark.class,applicantNameZh);
         }catch (Exception e){
@@ -93,7 +93,7 @@ public class TrademarkDao {
      * @return
      */
     public List<Trademark> findByLikeApplicantNameEn(String applicantNameEn){
-        String sql="select * from t_trademark where applicantNameEh like %?%";
+        String sql="select * from t_trademark where applicantNameEh like '%?%'";
         try{
             return DaoUtils.findAll(sql,Trademark.class,applicantNameEn);
         }catch (Exception e){
@@ -190,7 +190,7 @@ public class TrademarkDao {
             return null;
         }
     }
-<<<<<<< HEAD:src/main/java/com/isoft/dao/TrademarkDao.java
+
 
     /**
      * 分页
@@ -203,7 +203,87 @@ public class TrademarkDao {
             String sql="select * from t_trademark limit ?,?";
             return DaoUtils.findAll(sql, Trademark.class, pageSize * (currentPage - 1), pageSize);
         } catch (SQLException e) {
-=======
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 分页，商标名
+     * @param pageSize
+     * @param currentPage
+     * @param trademarkName
+     * @return
+     */
+    public List<Trademark> pagingTNameBySql(int pageSize, int currentPage,String trademarkName){
+        try {
+            String sql="select * from t_trademark where trademarkName = ? limit ?,?";
+            return DaoUtils.findAll(sql, Trademark.class,trademarkName, pageSize * (currentPage - 1), pageSize);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Trademark> pagingLikeTNameBySql(int pageSize, int currentPage,String trademarkName){
+        try {
+            String sql="select * from t_trademark where trademarkName like '%?%' limit ?,?";
+            return DaoUtils.findAll(sql, Trademark.class,trademarkName, pageSize * (currentPage - 1), pageSize);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 分页，中文名
+     * @param pageSize
+     * @param currentPage
+     * @param applicantNameZh
+     * @return
+     */
+    public List<Trademark> pagingCHNameBySql(int pageSize, int currentPage,String applicantNameZh){
+        try {
+            String sql="select * from t_trademark where applicantNameZh = ? limit ?,?";
+            return DaoUtils.findAll(sql, Trademark.class,applicantNameZh, pageSize * (currentPage - 1), pageSize);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Trademark> pagingLikeCHNameBySql(int pageSize, int currentPage,String applicantNameZh){
+        try {
+            String sql="select * from t_trademark where applicantNameZh like '%?%' limit ?,?";
+            return DaoUtils.findAll(sql, Trademark.class,applicantNameZh, pageSize * (currentPage - 1), pageSize);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /**
+     * 分页，英文
+     * @param pageSize
+     * @param currentPage
+     * @param applicantNameEn
+     * @return
+     */
+    public List<Trademark> pagingENNameBySql(int pageSize, int currentPage,String applicantNameEn){
+        try {
+            String sql="select * from t_trademark where applicantNameEn = ? limit ?,?";
+            return DaoUtils.findAll(sql, Trademark.class,applicantNameEn, pageSize * (currentPage - 1), pageSize);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Trademark> pagingLikeENNameBySql(int pageSize, int currentPage,String applicantNameEn){
+        try {
+            String sql="select * from t_trademark where applicantNameEn like '%?%' limit ?,?";
+            return DaoUtils.findAll(sql, Trademark.class,applicantNameEn, pageSize * (currentPage - 1), pageSize);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * 根据id查询出详细的商标信息
      */
@@ -212,13 +292,10 @@ public class TrademarkDao {
         try {
             return DaoUtils.find(sql,Trademark.class,id);
         }catch (Exception e){
->>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02:src/main/java/com/isoft/dao/TradeSearchDao.java
             e.printStackTrace();
             return null;
         }
     }
-<<<<<<< HEAD:src/main/java/com/isoft/dao/TrademarkDao.java
-
     /**
      * 保存商标信息
      * @param trademark
@@ -297,6 +374,71 @@ public class TrademarkDao {
         }
     }
 
-=======
->>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02:src/main/java/com/isoft/dao/TradeSearchDao.java
+    /**
+     * 按照商标名查询出总数
+     */
+    public int getTotalByTrademarkName(String trademarkName){
+        try{
+            return DaoUtils.searchCountByCondition("select count(*) from t_trademark where trademarkName=?",Trademark.class,trademarkName);
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    /**
+     * 按照商标名模糊查询出总数
+     */
+    public int getTotalByLikeTrademarkName(String trademarkName){
+        try{
+            return DaoUtils.searchCountByCondition("select count(*) from t_trademark where trademarkName like '%?%'",Trademark.class,trademarkName);
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * 按照中文名查询出总数
+     */
+    public int getTotalByCHPName(String applicantNameZh){
+        try{
+            return DaoUtils.searchCountByCondition("select count(*) from t_trademark where applicantNameZh=?",Trademark.class,applicantNameZh);
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    /**
+     * 按照中文模糊查询出总数
+     */
+    public int getTotalByLikeCHPName(String applicantNameZh){
+        try{
+            return DaoUtils.searchCountByCondition("select count(*) from t_trademark where applicantNameZh like '%?%'",Trademark.class,applicantNameZh);
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    /**
+     * 按照En名查询出总数
+     */
+    public int getTotalByENGPName(String applicantNameEn){
+        try{
+            return DaoUtils.searchCountByCondition("select count(*) from t_trademark where applicantNameEn=?",Trademark.class,applicantNameEn);
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    /**
+     * 按照en模糊查询出总数
+     */
+    public int getTotalByLikeENGPName(String applicantNameEn){
+        try{
+            return DaoUtils.searchCountByCondition("select count(*) from t_trademark where applicantNameEn like '%?%'",Trademark.class,applicantNameEn);
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }
