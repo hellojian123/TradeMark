@@ -18,9 +18,8 @@ public class TrademarkService {
      * @return
      */
     public boolean saveOrUpdate(Trademark trademark){
-        if(trademark.getId()==-1){//保存
+        if(trademark.getId()==0){//保存
             trademarkDao.save(trademark);
-
         }else{
             trademarkDao.update(trademark);
         }
@@ -52,5 +51,13 @@ public class TrademarkService {
      */
     public int getTotalCount(){
         return trademarkDao.getTotalCount();
+    }
+    /**
+     * By HALOBING at 2014/5/8 16:25
+     * 单条删除或批量删除，如果ids包含 , 则执行批量删除
+     * @param ids
+     */
+    public int deleteObj(String ids){
+        return trademarkDao.deleteObj(ids);
     }
 }

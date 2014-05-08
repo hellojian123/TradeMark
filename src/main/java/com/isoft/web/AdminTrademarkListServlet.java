@@ -23,8 +23,8 @@ public class AdminTrademarkListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WebUtils.checkSession(request, response, "admin", "/goAdmin.jsp");   //检查session中是否有admin。有则为admin登陆状态。
 
-        int currentPage=Integer.parseInt((request.getParameter("currentPage") == null) ? "1" : request.getParameter("currentPage"));
-        int pageSize=1;//每页显示的条数
+        int currentPage=Integer.parseInt((request.getParameter("currentPage") == null||"".equals(request.getParameter("currentPage"))) ? "1" : request.getParameter("currentPage"));
+        int pageSize=3;//每页显示的条数
         TrademarkService ts=new TrademarkService();
         int totalCount=ts.getTotalCount();
         PageModel<Trademark> pm=new PageModel<Trademark>(totalCount,pageSize);
@@ -34,7 +34,9 @@ public class AdminTrademarkListServlet extends HttpServlet {
         List<Trademark> list= ts.pagingBySql(pageSize,currentPage);
         pm.setResult(list);
         request.setAttribute("pm", pm);
+        request.setAttribute("currentPage",currentPage);
         request.getRequestDispatcher("/WEB-INF/admin/trademarkManage.jsp").forward(request,response);
 
     }
+
 }

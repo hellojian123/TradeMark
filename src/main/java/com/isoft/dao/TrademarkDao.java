@@ -190,8 +190,6 @@ public class TrademarkDao {
             return null;
         }
     }
-<<<<<<< HEAD:src/main/java/com/isoft/dao/TrademarkDao.java
-
     /**
      * 分页
      * @param pageSize 每页显示的条数
@@ -203,7 +201,10 @@ public class TrademarkDao {
             String sql="select * from t_trademark limit ?,?";
             return DaoUtils.findAll(sql, Trademark.class, pageSize * (currentPage - 1), pageSize);
         } catch (SQLException e) {
-=======
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * 根据id查询出详细的商标信息
      */
@@ -212,12 +213,10 @@ public class TrademarkDao {
         try {
             return DaoUtils.find(sql,Trademark.class,id);
         }catch (Exception e){
->>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02:src/main/java/com/isoft/dao/TradeSearchDao.java
             e.printStackTrace();
             return null;
         }
     }
-<<<<<<< HEAD:src/main/java/com/isoft/dao/TrademarkDao.java
 
     /**
      * 保存商标信息
@@ -250,7 +249,7 @@ public class TrademarkDao {
     public void update(Trademark trademark){
         try {
             String sql="UPDATE t_trademark SET applyNum=?,classificationNum=?," +
-                    "trademarkName=?,applyDate,applicantNameZh=?,"+"" +
+                    "trademarkName=?,applyDate=?,applicantNameZh=?,"+"" +
                     "applicantNameEn=?,applicantAddressZh=?,applicantAddressEn=?,imgPath=?," +
                     "servicesList=?,similarGroup=?,firstNoticeNum=?,"+"" +
                     "registerNoticeNum=?,firstNoticeDate=?,registerNoticeDate=?," +
@@ -297,6 +296,26 @@ public class TrademarkDao {
         }
     }
 
-=======
->>>>>>> 6bea5dab7076f09d406ae9a8789912925fe9ea02:src/main/java/com/isoft/dao/TradeSearchDao.java
+    /**
+     * By HALOBING at 2014/5/8 16:25
+     * 单条删除或批量删除，如果ids包含 , 则执行批量删除,返回 1，操作成功，返回 0 操作失败
+     * @param ids
+     */
+    public int deleteObj(String ids){
+        try {
+            String sql="delete from t_trademark where id=?";
+            if(!ids.contains(",")){
+                DaoUtils.update(sql,ids);
+                return 1;
+            }
+            for(String id:ids.split(",")){
+                DaoUtils.update(sql,id);
+            }
+            return 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
