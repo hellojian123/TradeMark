@@ -44,7 +44,7 @@
 						商标管理
 					</a>
 					<ul>
-							<li><a href="javascript:load('${ctx}/admin/AdminTrademarkListServlet')">商标列表</a></li>
+							<li><a href="javascript:load('${ctx}/admin/AdminTrademarkListServlet?currentPage=1')">商标列表</a></li>
 					</ul>
 				</li>
 

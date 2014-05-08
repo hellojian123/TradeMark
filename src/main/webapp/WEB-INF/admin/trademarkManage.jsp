@@ -12,11 +12,9 @@
 		<title>商标管理</title>
 		<%@include file="/common/common.jsp"%>
 		<script type="text/javascript" src="${ctx}/js/page.js"></script>
-		<script type="text/javascript" src="${ctx}/js/FilterHtml.js"></script>
 		<script type="text/javascript" src="${ctx}/date/WdatePicker.js"></script>
 		<script type="text/javascript" src="${ctx}/js/ajaxfileupload.js"></script>
 		<script type="text/javascript">
-		var objId=-1;
         var applyNum="";
 		var classificationNum="";
 		var trademarkName="";
@@ -122,8 +120,8 @@
 		
 		function saveOrUpdate(){
 			if(validate()){
-				$.post("${ctx}/admin/AdminAddOrUpdateTrademarkServlet",
-                {"id":objId,"applyNum":applyNum,"classificationNum":classificationNum,
+				$.post("${ctx}/admin/AdminAddOrUpdateTrademarkServlet?id="+$("#hdId").val(),
+                {"applyNum":applyNum,"classificationNum":classificationNum,
                     "trademarkName":trademarkName,"applyDate":applyDate,
                     "applicantNameZh":applicantNameZh,"applicantNameEn":$("#applicantNameEn").val(),
                     "applicantAddressZh":applicantAddressZh,"applicantAddressEn":$("#applicantAddressEn").val(),
@@ -138,15 +136,14 @@
                     "remarks":$("#remarks").val(),"trademarkProcess":$("#trademarkProcess").val()
                 },function(msg){
 					alert(msg);
-                    window.location.reload();
-                    $("html, body").animate({ scrollTop: 0 }, 100);
+                    window.location.href="${ctx}/admin/AdminTrademarkListServlet?currentPage=${currentPage}";
 				});
 
 			}
 		}
 		
 		$(document).ready(function(){
-				$(window.parent.document.getElementById("childIframe")).height(1900);
+				$(window.parent.document.getElementById("childIframe")).height($("#applyNum").val()==""?400:1900);
 				$('.content-box .content-box-content div.tab-content').hide();
 				$('ul.content-box-tabs li a.default-tab').addClass('current');
 				$('.content-box-content div.default-tab').show(); 
@@ -176,17 +173,31 @@
 						return false;
 					}
 				);
-				//给导航名赋值   使其选中
-				$("#selectobjType").val(${menuTypeId});
-				$(".deleteobj").click(function(){
+
+                if($("#hdApplyNum").val()!=""){
+                    var a = $('.content-box ul.content-box-tabs li a');
+                    $(a).parent().siblings().find("a").removeClass('current');
+                    $(a).addClass('current');
+                    $("#role").html("修改商标");
+                    $(".default-tab").removeClass('current');
+                    $("#tab1").hide();
+                    $("#tab2").show();
+                }
+                $("#role").click(function(){
+                    $(window.parent.document.getElementById("childIframe")).height(1900);
+                });
+                $("#list").click(function(){
+                    $(window.parent.document.getElementById("childIframe")).height(400);
+                });
+				$(".deleteObj").click(function(){
 					var objId=$(this).attr("objId");
-					var objTitle=$(this).attr("objTitle");
-			    	var sure=confirm("确认删除标题为"+objTitle+"的商标吗？");
+					var objName=$(this).attr("objName");
+			    	var sure=confirm("确认删除商标名为【"+objName+"】的商标吗？");
 					if(sure){
-						$.post("${ctx}/admin/obj/deleteobjById",{objId:objId},function(data){
-								if(data=="0"){
-									alert("删除成功！");
-									location.href="${ctx}/admin/obj?currentPage=${currentPage}";
+						$.post("${ctx}/admin/AdminDeleteTrademarkServlet",{ids:objId},function(data){
+								if(data=="删除成功！"){
+									alert(data);
+									location.href="${ctx}/admin/AdminTrademarkListServlet?currentPage=${currentPage}";
 								}else{
 									alert("删除失败！");
 								}
@@ -194,43 +205,61 @@
 					}
 					return false;
 				});
-				
-				$("#objType").change(function(){
-					var type=$(this).val();
-					if(type==7||type==8){//显示预览图地址
-						$("#previewImgP").css("display","block");
-						$("#gqdiv").css("display","none");
-					}else if(type==2||type==3){//供求信息
-						$("#gqdiv").css("display","block");
-						$("#previewImgP").css("display","block");
-						$("#hyzx").css("display","none");
-					}else if(type==4){//行业资讯
-						$("#hyzx").css("display","block");
-						$("#gqdiv").css("display","none");
-						$("#previewImgP").css("display","none");
-					}else{//隐藏预览图地址
-						$("#previewImgP").css("display","none");
-						$("#gqdiv").css("display","none");
-						$("#hyzx").css("display","none");
-					}
-				});
 				document.body.style.display="block";
-			});	
-			
-			function edit(id){
-				var url="${ctx}/admin/AdminGetTrademarkByIdServlet";
-				$.getJSON(url,{"id":id},function(data){
-                        objId=id;
-						/*data=$.parseJSON(data);*/
-						var a = $('.content-box ul.content-box-tabs li a');
-						$(a).parent().siblings().find("a").removeClass('current');
-						$(a).addClass('current');
-						$("#role").html("修改商标");
-						$(".default-tab").removeClass('current');
-						$("#tab1").hide(); 
-						$("#tab2").show();
-				});
-			}
+			});
+
+
+
+        function edit(id) {
+            /*var url = "${ctx}/admin/AdminGetTrademarkByIdServlet";*/
+            window.location.href="${ctx}/admin/AdminGetTrademarkByIdServlet?id="+id;
+           /* objId = id;//给id赋值，这时点击保存按钮，执行修改的方法*/
+/*            $.getJSON(url, {"id":id}, function (data) {
+                //var objs = eval("(" + data + ")"); //解析json对象
+                var objs = $.parseJSON(data);
+                $("#applyNum").val(objs.applyNum);
+                $("#classificationNum").val(objs.classificationNum);
+                $("#trademarkName").val(objs.trademarkName);
+                $("#applyDate").val(objs.applyDate);
+                $("#applicantNameZh").val(objs.applicantNameZh);
+                $("#applicantNameEn").val(objs.applicantNameEn);
+                $("#applicantAddressZh").val(objs.applicantAddressZh);
+                $("#applicantAddressEn").val(objs.applicantAddressEn);
+                $("#imgUrlAddress").attr("src",objs.imgPath);
+                $("#servicesList").val(objs.servicesList);
+                $("#similarGroup").val(objs.similarGroup);
+                $("#firstNoticeNum").val(objs.firstNoticeNum);
+                $("#registerNoticeNum").val(objs.registerNoticeNum);
+                $("#firstNoticeDate").val(objs.firstNoticeDate);
+                $("#registerNoticeDate").val(objs.registerNoticeDate);
+                $("#exclusiveRightStartDate").val(objs.exclusiveRightStartDate);
+                $("#exclusiveRightEndDate").val(objs.exclusiveRightEndDate);
+                $("#afterNamedDate").val(objs.afterNamedDate);
+                $("#internationalRegisterDate").val(objs.internationalRegisterDate);
+                $("#priorityDate").val(objs.priorityDate);
+                $("#specifyColor").val(objs.specifyColor);
+                $("#trademarkType").val(objs.trademarkType);
+                objs.share?$("#shareYes").attr("checked","checked"):$("#shareNo").attr("checked","checked");
+                $("#remarks").val(objs.remarks);
+                $("#trademarkProcess").val(objs.trademarkProcess);
+
+                var a = $('.content-box ul.content-box-tabs li a');
+                $(a).parent().siblings().find("a").removeClass('current');
+                $(a).addClass('current');
+                $("#role").html("修改商标");
+                $(".default-tab").removeClass('current');
+                $("#tab1").hide();
+                $("#tab2").show();
+            });*/
+/*           var a = $('.content-box ul.content-box-tabs li a');
+            $(a).parent().siblings().find("a").removeClass('current');
+            $(a).addClass('current');
+            $("#role").html("修改商标");
+            $(".default-tab").removeClass('current');
+            $("#tab1").hide();
+            $("#tab2").show();*/
+
+        }
 
         function uploadimage(file){
             $.ajaxFileUpload({
@@ -255,28 +284,41 @@
             return false;
         }
 
-            $(function(){
-                // 给 window 对象绑定 scroll 事件
-                $(window).bind("scroll", function(){
-
-                    // 获取网页文档对象滚动条的垂直偏移
-                    var scrollTopNum = $(document).scrollTop(),
-                    // 获取浏览器当前窗口的高度
-                            winHeight = $(window).height(),
-                            returnTop = $("div.returnTop");
-
-                    // 滚动条的垂直偏移大于 0 时显示，反之隐藏
-                    (scrollTopNum > 0) ? returnTop.fadeIn("fast") : returnTop.fadeOut("fast");
-
-                    // 给 IE6 定位
-                    if (!-[1,] && !window.XMLHttpRequest) {
-                        returnTop.css("top", scrollTopNum + winHeight - 200);
+        //根据多个id删除数据
+        function delByIds(){
+            var ids="";
+            var i=0;
+            var arr = new Array();
+            $("input[type='checkbox']").each(function(){
+                if($(this).attr("checked")){
+                    if($(this).val()!="on"&&this.name=='xidx'){
+                        ids += $(this).val()+",";
+                        arr[i] = $(this).parent().parent();
+                        i++;
                     }
-
-                });
+                }
             });
+            var dot = ids.lastIndexOf(",");
+            if(dot==-1){
+                alert("请先选择要删除的选项");
+                return;
+            }else{
+                ids = ids.substring(0,dot);
+            }
+            if(window.confirm("选中了"+i+"条数据，确认删除？")){
+                $.post("${ctx}/admin/AdminDeleteTrademarkServlet",{"ids":ids},function(data){
+                    if(data=="删除成功！"){
+                        alert(data);
+                        location.href="${ctx}/admin/AdminTrademarkListServlet?currentPage=${currentPage}";
+                    }else{
+                        alert("删除失败！");
+                    }
+                });
+            }
+        }
 
 		</script>
+
 		<style type="text/css">
 			label{
 				float: left;
@@ -292,7 +334,7 @@
 						</h3>
 						<ul class="content-box-tabs">
 							<li>
-								<a href="#tab1" class="default-tab">商标信息列表</a>
+								<a href="#tab1" class="default-tab" id="list">商标信息列表</a>
 							</li>
 							<li>
 								<a href="#tab2" id="role">添加新商标</a>
@@ -308,7 +350,7 @@
 										title="Close this notification" alt="close" />
 								</a>
 								<div>
-								<form action="${ctx}/admin/likeSearchTrademarkNameServlet" method="get">
+								<form action="${ctx}/admin/AdminLikeSearchTrademarkServlet" method="get">
 									<input type="hidden" name="currentPage" value="${currentPage}">
 									商标名
                                         <input class="Medium-input" type="text"  id="trademarkNameSearchVal" />
@@ -406,6 +448,7 @@
 						<!-- End #tab1 -->
 
 						<div class="tab-content" id="tab2">
+                        <input type="hidden" id="hdId" value="${tid}"/>
 								<fieldset>
                                     <center>（注：黄色背景叹号为必填项，蓝色为选填项）</center><br/>
 								<form action="${ctx}/admin/obj/add" method="post" id="mainform">
@@ -413,14 +456,15 @@
 										<label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  注册号/申请号：
 										</label>
-										<input class="text-input small-input" type="text" id="applyNum" name="applyNum" />
+										<input class="text-input small-input" type="text" id="applyNum" name="applyNum" value="${applyNum}"/>
+                                        <input type="hidden" id="hdApplyNum" value="${applyNum}"/>
 										<span class="input-notification attention png_bg">输入注册号/申请号信息</span>
 									</p>
 									<p>
 										<label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国际分类号：
 										</label>
-                                        <input class="text-input small-input" type="text" id="classificationNum" name="classificationNum"
+                                        <input class="text-input small-input" type="text" id="classificationNum" name="classificationNum" value="${classificationNum}"
                                                onkeyup="value=value.replace(/[^\d]/g,'') "
                                                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
 										<span class="input-notification attention png_bg">输入国际分类号信息</span>
@@ -429,70 +473,72 @@
 										<label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 商标名称：
 										</label>
-                                        <input class="text-input small-input" type="text" id="trademarkName" name="trademarkName" />
+                                        <input class="text-input small-input" type="text" id="trademarkName" name="trademarkName" value="${trademarkName}"/>
 										<span class="input-notification attention png_bg">输入商标名称信息</span>
 									</p>
                                     <p>
 										<label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 申请日期：
 										</label>
-                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="applyDate" name="applyDate" size="8"/>
+                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="applyDate" name="applyDate" size="8" value="${applyDate}"/>
 										<span class="input-notification attention png_bg">选择申请日期</span>
 									</p>
                                     <p>
                                         <label>
                                             申请人名称（中文）：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="applicantNameZh" name="applicantNameZh"/>
+                                        <input class="text-input small-input" type="text" id="applicantNameZh" name="applicantNameZh" value="${applicantNameZh}"/>
                                         <span class="input-notification attention png_bg">输入申请人名称（中文）信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             申请人名称（英文）：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="applicantNameEn" name="applicantNameEn" />
+                                        <input class="text-input small-input" type="text" id="applicantNameEn" name="applicantNameEn" value="${applicantNameEn}"/>
                                         <span class="input-notification information png_bg">输入申请人名称（英文）信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             申请人地址（中文）：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="applicantAddressZh" name="applicantAddressZh" />
+                                        <input class="text-input small-input" type="text" id="applicantAddressZh" name="applicantAddressZh" value="${applicantAddressZh}"/>
                                         <span class="input-notification attention png_bg">输入申请人地址（中文）信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             申请人地址（英文）：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="applicantAddressEn" name="applicantAddressEn" />
+                                        <input class="text-input small-input" type="text" id="applicantAddressEn" name="applicantAddressEn" value="${applicantAddressEn}"/>
                                         <span class="input-notification information png_bg">输入申请人地址（英文）信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;初审公告期号：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="firstNoticeNum" name="firstNoticeNum" />
+                                        <input class="text-input small-input" type="text" id="firstNoticeNum" name="firstNoticeNum" value="${firstNoticeNum}"/>
                                         <span class="input-notification attention png_bg">输入初审公告期号信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;注册公告期号：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="registerNoticeNum" name="registerNoticeNum" />
+                                        <input class="text-input small-input" type="text" id="registerNoticeNum" name="registerNoticeNum" value="${registerNoticeNum}"/>
                                         <span class="input-notification attention png_bg">输入注册公告期号信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;初审公告日期：
                                         </label>
-                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="firstNoticeDate" name="firstNoticeDate" size="8"/>
+                                        <input class="text-input small-input" type="text" onClick="WdatePicker()"
+                                               id="firstNoticeDate" name="firstNoticeDate" size="8" value="${firstNoticeDate}"/>
                                         <span class="input-notification attention png_bg">选择初审公告日期</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;注册公告日期：
                                         </label>
-                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="registerNoticeDate" name="registerNoticeDate" size="8"/>
+                                        <input class="text-input small-input" type="text" onClick="WdatePicker()"
+                                               id="registerNoticeDate" name="registerNoticeDate" size="8" value="${registerNoticeDate}"/>
                                         <span class="input-notification attention png_bg">选择注册公告日期</span>
                                     </p>
 
@@ -500,49 +546,52 @@
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;后期指定日期：
                                         </label>
-                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="afterNamedDate" name="afterNamedDate" size="8"/>
+                                        <input class="text-input small-input" type="text" onClick="WdatePicker()"
+                                               id="afterNamedDate" name="afterNamedDate" size="8" value="${afterNamedDate}"/>
                                         <span class="input-notification information png_bg">选择后期指定日期</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;国际注册日期：
                                         </label>
-                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="internationalRegisterDate" name="internationalRegisterDate" size="8"/>
+                                        <input class="text-input small-input" type="text" onClick="WdatePicker()"
+                                               id="internationalRegisterDate" name="internationalRegisterDate" size="8" value="${internationalRegisterDate}"/>
                                         <span class="input-notification information png_bg">选择国际注册日期</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优先权日期：
                                         </label>
-                                        <input class="text-input small-input" type="text" onClick="WdatePicker()" id="priorityDate" name="priorityDate" size="8"/>
+                                        <input class="text-input small-input" type="text" onClick="WdatePicker()"
+                                               id="priorityDate" name="priorityDate" size="8" value="${priorityDate}"/>
                                         <span class="input-notification information png_bg">选择优先权日期</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;代理人名称：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="agentName" name="agentName" />
+                                        <input class="text-input small-input" type="text" id="agentName" name="agentName" value="${agentName}"/>
                                         <span class="input-notification information png_bg">输入代理人名称信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 指定颜色：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="specifyColor" name="specifyColor" />
+                                        <input class="text-input small-input" type="text" id="specifyColor" name="specifyColor" value="${specifyColor}"/>
                                         <span class="input-notification information png_bg">输入指定颜色信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 商标类型：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="trademarkType" name="trademarkType" />
+                                        <input class="text-input small-input" type="text" id="trademarkType" name="trademarkType" value="${trademarkType}"/>
                                         <span class="input-notification attention png_bg">输入商标类型信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;类似群：
                                         </label>
-                                        <input class="text-input small-input" type="text" id="similarGroup" name="similarGroup"
+                                        <input class="text-input small-input" type="text" id="similarGroup" name="similarGroup" value="${similarGroup}"
                                                onkeyup="value=value.replace(/[^\d]/g,'') "
                                                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
                                         <span class="input-notification attention png_bg">输入类似群信息</span>
@@ -551,17 +600,19 @@
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 专用权期限：
                                         </label>
-                                        <input class="text-input Medium-input" type="text" onClick="WdatePicker()" id="exclusiveRightStartDate" name="exclusiveRightStartDate" size="8"/>
+                                        <input class="text-input Medium-input" type="text" onClick="WdatePicker()" value="${exclusiveRightStartDate}"
+                                               id="exclusiveRightStartDate" name="exclusiveRightStartDate" size="14"/>
                                         到
-                                        <input class="text-input Medium-input" type="text" onClick="WdatePicker()" id="exclusiveRightEndDate" name="exclusiveRightEndDate" size="8"/>
+                                        <input class="text-input Medium-input" type="text" onClick="WdatePicker()" value="${exclusiveRightEndDate}"
+                                               id="exclusiveRightEndDate" name="exclusiveRightEndDate" size="14"/>
                                         <span class="input-notification attention png_bg">选择专用权期限开始日期和结束日期</span>
                                     </p>
                                     <p>
                                         <label>
                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;是否共有商标：
                                         </label>
-                                           是<input type="radio" id="shareYes" name="share" value="1"/>
-                                           否<input type="radio" id="shareNo" name="share" checked="checked" value="0"/>
+                                           是<input type="radio" id="shareYes" name="share" value="1" <c:if test="${share eq true}">checked="checked"</c:if>/>
+                                           否<input type="radio" id="shareNo" name="share" value="0" <c:if test="${share eq false || empty share}">checked="checked"</c:if> />
                                         <span class="input-notification information png_bg">选择是否为共有商标</span>
                                     </p>
                                     <br/>
@@ -571,21 +622,21 @@
                                         <label>
                                             商品/服务列表：
                                         </label>
-                                        <textarea rows="3" cols="8" id="servicesList" name="servicesList"></textarea>
+                                        <textarea rows="3" cols="8" id="servicesList" name="servicesList">${servicesList}</textarea>
                                         <span class="input-notification attention png_bg">输入商品/服务列表信息，多个以 ; 分开</span>
                                     </p>
                                     <p>
                                         <label>
                                             商标流程：
                                         </label>
-                                        <textarea rows="3" cols="8" id="trademarkProcess" style="width: 50%" name="trademarkProcess"></textarea>
+                                        <textarea rows="3" cols="8" id="trademarkProcess" style="width: 50%" name="trademarkProcess">${trademarkProcess}</textarea>
                                         <span class="input-notification information png_bg">输入商标流程信息</span>
                                     </p>
                                     <p>
                                         <label>
                                             备注：
                                         </label>
-                                        <textarea rows="3" cols="8" id="remarks" name="remarks"></textarea>
+                                        <textarea rows="3" cols="8" id="remarks" name="remarks">${remarks}</textarea>
                                         <span class="input-notification information png_bg">输入备注信息</span>
                                     </p>
                                     <P>
@@ -596,7 +647,7 @@
                                         <input class="button setBtnWidth" type="button" value="上传" onclick="uploadimage()" style="width:50px;" id="uploadImg"/>
                                         <span class="input-notification attention png_bg">选择要上传的图片</span>
                                         <br/>
-                                        <img src="" width="200px" height="200px" style="border:1px #555 solid;" id="imgUrlAddress"  />
+                                        <img src="${imgPath}" width="200px" height="200px" style="border:1px #555 solid;" id="imgUrlAddress"  />
                                     </P>
                                     <p>
 											<input class="button" type="button" style="width:90px;margin-left:70px;" onclick="saveOrUpdate()" value="保存"/>
@@ -610,7 +661,7 @@
 				<jsp:include page="bottom.jsp" />
 			</div>
 			<script type="text/javascript">
-				load('${ctx}');
+				window.load('${ctx}');
 			</script>
 	</body>
 </html>
