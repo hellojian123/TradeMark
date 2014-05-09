@@ -65,7 +65,7 @@ public class FileUpload extends HttpServlet {
 					if(filename==null || filename.trim().equals("")){
 						continue;
 					}
-					filename = filename.substring(filename.lastIndexOf("/")+1);//不同的浏览器提交的文件是不一样  c:\a\b\1.txt   1.txt,所以需要截取
+					filename = filename.substring(filename.lastIndexOf("\\")+1);//不同的浏览器提交的文件是不一样  c:\a\b\1.txt   1.txt,所以需要截取
 					long maxSize = 1000000;
 					String fileType="";
 					int tempFileSize=0;

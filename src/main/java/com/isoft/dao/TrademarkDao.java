@@ -303,5 +303,20 @@ public class TrademarkDao {
 		}
 	}
 
+    /**
+     * By HALOBING at 2014/5/8 18:00
+     * 后台模糊查询商标名称
+     * @return
+     */
+    public List<Trademark> adminLikeSearch(String name){
+        String sql="SELECT * FROM t_trademark where trademarkName like ?";
+        try {
+            return DaoUtils.searchAll(sql,Trademark.class,"%"+name+"%");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
 

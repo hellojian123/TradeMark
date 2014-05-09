@@ -92,5 +92,13 @@ public class TrademarkService {
 		}
 		return trademarkDao.getCountByCondition(sqlQueryfieldName,condition,selectCondition);
 	}
+    /**
+     * By HALOBING at 2014/5/8 18:03
+     * 后台模糊查询商标名称
+     * @return
+     */
+    public List<Trademark> AdminLikeSearch(String name){
+       return trademarkDao.adminLikeSearch(name);
+    }
 
 }
