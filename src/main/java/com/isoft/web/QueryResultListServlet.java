@@ -41,6 +41,7 @@ public class QueryResultListServlet extends HttpServlet {
         TrademarkService ts=new TrademarkService();
         int total=0;
         List<Trademark> trademarkList=null;
+
         int currentPage=Integer.parseInt((request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().equals("")) ? "1" : request.getParameter("currentPage"));
         int pageSize=10;//每页显示的条数
         PageModel<Trademark> pm=null;
@@ -48,9 +49,10 @@ public class QueryResultListServlet extends HttpServlet {
         if(applyNum!=null&&!applyNum.trim().equals("")){
             request.setAttribute("applyNum",applyNum);
             Trademark trademark=ts.findByApplyNum(applyNum);
-            request.setAttribute("trademark",trademark);
+			if(trademark!=null){
+				request.setAttribute("trademark",trademark);
+			}
             request.setAttribute("classificationNum",classificationNum);
-
 			request.getRequestDispatcher("/WEB-INF/page/queryRegNumResultsList.jsp").forward(request,response);
 			return;
 		}
@@ -92,6 +94,7 @@ public class QueryResultListServlet extends HttpServlet {
 		}
 
         pm.setResult(trademarkList);
+		pm.setCurPage(currentPage);
         request.setAttribute("pm",pm);
         request.setAttribute("type",type);
 		request.getRequestDispatcher("/WEB-INF/page/generalQueryResultList.jsp").forward(request, response);

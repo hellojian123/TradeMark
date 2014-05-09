@@ -60,7 +60,7 @@ table tr td {
 	line-height: 30px;
 	float: left;
 	text-align: center;
-	font-size: 14px;
+	font-size: 13px;
 	color:#3c3c3c;
 	font-weight: 600;
 }
@@ -116,7 +116,8 @@ table tr td {
 	margin-top: 30px;
 	margin-bottom: 15px;
 }
-
+.table-inside tbody tr td input{float:left;}
+.table-inside tbody .bt td input{float:none;}
 .table-inside tbody tr >td:first-child {
 	width: 30%;
 	text-align: right;
@@ -158,7 +159,7 @@ table tr td {
 
 /*--------------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------查询详情页-------------------------------------------*/
-
+.detail-middle {width:600px;margin:0 auto;}
 .detail-outer {width:610px;margin:0 auto;border:0px solid #cccccc;}
 .detail-inner2-w1{width:20px;}
 .detail-inner2-w2{width:300px;}
@@ -169,5 +170,13 @@ table tr td {
 
 /*--------------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------类似群-------------------------------------------*/
-
+#query-results {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -375px;
+    width: 750px;
+    height: 200px;
+}
 .similar-groups{width:500px;margin:0 auto;border:0px solid #cccccc;}
+.nav ul li a:hover{color:#55555;background-color:#dadada;display:inline-block;font-weight:800;}

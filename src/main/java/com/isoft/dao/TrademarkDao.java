@@ -275,6 +275,7 @@ public class TrademarkDao {
 
 		String likeCondtition = null;
 		String sql = "select * from t_trademark where "+sqlQueryFeild;
+		int pageStartNum = 0;
 		if(selectCondition==0){	//前包含查询
 			likeCondtition = " like ?";
 			queryContent = queryContent+"%";
@@ -288,15 +289,17 @@ public class TrademarkDao {
 		}
 		sql = sql+likeCondtition+" limit ?,?";
 
-		if(currentPage>0){
+		if(currentPage<0){
+			currentPage=1;
+		}
+		if (currentPage>0){
 			currentPage=currentPage-1;
 		}
-		if(currentPage<0){
-			currentPage=0;
-		}
+		pageStartNum = currentPage*pageSize;
+
 
 		try {
-			return DaoUtils.findAll(sql,Trademark.class,queryContent,currentPage,pageSize);
+			return DaoUtils.findAll(sql,Trademark.class,queryContent,pageStartNum,pageSize);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
