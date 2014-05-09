@@ -3,6 +3,8 @@ package com.isoft.dao;
 import com.isoft.bean.NewsTemplate;
 import com.isoft.bean.User;
 import com.isoft.util.DaoUtils;
+import com.isoft.util.ServiceUtils;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -90,4 +92,23 @@ public class AdminDao {
 		}
 
 	}
+    /**
+     * 修改密码
+     */
+    public boolean updatePWD(String newpwd,String oldpwd,Integer id){
+        try{
+                String tempnewpwd=ServiceUtils.MD5(newpwd);
+                String tempoldpwd=ServiceUtils.MD5(oldpwd);
+                String sql="select * from t_user where id=?";
+                User user=DaoUtils.find(sql,User.class,id);
+                if (tempoldpwd.equals(user.getPassword())){
+                    String upsql="UPDATE t_user set password =? where id=?";
+                    DaoUtils.update(upsql,tempnewpwd,id);
+                    return true;
+                }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

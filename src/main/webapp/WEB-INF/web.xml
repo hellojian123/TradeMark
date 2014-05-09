@@ -49,6 +49,18 @@
         <servlet-name>AdminTrademarkListServlet</servlet-name>
         <servlet-class>com.isoft.web.AdminTrademarkListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updatePwdServlet</servlet-name>
+        <servlet-class>com.isoft.web.updatePwdServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>updatePwdServlet</servlet-name>
+        <url-pattern>/admin/updatepwd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updatepwdUIServlet</servlet-name>
+        <url-pattern>/admin/updateUIpwd</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminTrademarkListServlet</servlet-name>
         <url-pattern>/admin/AdminTrademarkListServlet</url-pattern>
@@ -85,7 +97,11 @@
 		<servlet-name>QueryResultListServlet</servlet-name>
 		<servlet-class>com.isoft.web.QueryResultListServlet</servlet-class>
 	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>updatepwdUIServlet</servlet-name>
+        <servlet-class>com.isoft.web.updatepwdUIServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
 		<servlet-name>QueryResultListServlet</servlet-name>
 		<url-pattern>/queryResultList</url-pattern>
 	</servlet-mapping>
