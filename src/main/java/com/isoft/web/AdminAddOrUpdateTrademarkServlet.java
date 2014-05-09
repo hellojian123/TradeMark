@@ -26,47 +26,29 @@ public class AdminAddOrUpdateTrademarkServlet extends HttpServlet {
         WebUtils.checkSession(request, response, "admin", "/goAdmin.jsp");   //检查session中是否有admin。有则为admin登陆状态。
         Trademark trademark= WebUtils.request2Bean(request, Trademark.class);
         TrademarkService ts=new TrademarkService();
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            Trademark oldTrademark=ts.getById(trademark.getId());
-            if(ts.saveOrUpdate(trademark)){
-                if(trademark.getId()==0){
-                    out.write("保存成功！");
-                }else{
-                    //如果用户改变图片，则删除上一张商标图片
-                    if(trademark.getImgPath()!=null&&oldTrademark.getImgPath()!=null&&!trademark.getImgPath().equals(oldTrademark.getImgPath())){
-                        String path=request.getSession().getServletContext().getRealPath(oldTrademark.getImgPath());
-                        String newImgSrc=path.replace("/", File.separator).replace("\\", File.separator);//处理不同系统 文件夹路径分隔符不同的问题
-                        File file=new File(newImgSrc);
-                        if(file.exists()){
-                            file.delete();
-                        }
+        PrintWriter out = response.getWriter();
+        Trademark oldTrademark=ts.getById(trademark.getId());//根据id获取数据库中的imgPath
+        if(ts.saveOrUpdate(trademark)){
+            if(trademark.getId()==0){//如果id=0即客户端未提交id，执行保存操作
+                out.print("保存成功！");
+            }else{
+                //如果用户改变图片，则删除上一张商标图片
+                if(trademark.getImgPath()!=null&&oldTrademark.getImgPath()!=null&&!trademark.getImgPath().equals(oldTrademark.getImgPath())){
+                    String path=request.getSession().getServletContext().getRealPath(oldTrademark.getImgPath());
+                    String newImgSrc=path.replace("/", File.separator).replace("\\", File.separator);//处理不同系统 文件夹路径分隔符不同的问题
+                    File file=new File(newImgSrc);
+                    if(file.exists()){
+                        file.delete();
                     }
-                    out.write("修改成功！");
                 }
-                return ;
+                out.print("修改成功！");
             }
-            out.write("操作失败！");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            out.flush();
-            out.close();
-        }
-        //paging
-        int currentPage=Integer.parseInt((request.getParameter("currentPage") == null||"".equals(request.getParameter("currentPage"))) ? "1" : request.getParameter("currentPage"));
-        int pageSize=3;//每页显示的条数
-        int totalCount=ts.getTotalCount();
-        PageModel<Trademark> pm=new PageModel<Trademark>(totalCount,pageSize);
-        if(currentPage>pm.getMaxPage()){
-            currentPage=pm.getMaxPage();
-        }
-        List<Trademark> list= ts.pagingBySql(pageSize,currentPage);
-        pm.setResult(list);
-        request.setAttribute("pm", pm);
-        request.setAttribute("currentPage",currentPage);
-        request.getRequestDispatcher("/WEB-INF/admin/trademarkManage.jsp").forward(request,response);
 
+        }else{
+            out.print("操作失败！");
+        }
+        request.setAttribute("currentPage",request.getAttribute("currentPage"));
+        out.flush();
+        out.close();
     }
 }
