@@ -29,7 +29,12 @@ public class AdminService {
 		}
 		adminDao.update(user);
 	}
-
+    public  boolean updatePwd(String newpwd,String oldpwd,Integer id){
+        if (newpwd==null||id==null||oldpwd==null){
+            return false;
+        }
+        return adminDao.updatePWD(newpwd,oldpwd,id);
+    }
 	public List<NewsTemplate> getPosteresByType(String type) {
 		if(type==null||type.trim().equals("")){
 			return null;

@@ -54,7 +54,7 @@
 							系统设置
 						</a>
 						<ul>
-                            <li><a href="javascript:load('${ctx}/admin/user/updatepwdUI')">修改密码</a></li>
+                            <li><a href="javascript:load('${ctx}/admin/updateUIpwd')">修改密码</a></li>
 						</ul>
 					</li>    
 				</c:if>

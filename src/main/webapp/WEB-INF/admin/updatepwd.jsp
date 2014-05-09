@@ -7,7 +7,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>密码修改</title>
 		<%@include file="/common/common.jsp"%>
-		<script type="text/javascript" src="${ctx}/js/jquery-1.9.1.min.js"></script>
+
 		<script type="text/javascript">
 
 				$(document).ready(function(){	
@@ -35,13 +35,14 @@
 					$("#updatePwd").click(function(){
 						if(validate()){
 							var userId=$("#userId").val();
-							$.post("${ctx}/admin/user/updatepwd",{userId:userId,oldpwd:oldpwd,newPwd:newpwd},function(data){
-								if(data=="0"){
-									alert("密码修改成功！");
-									location.reload();
-								}else{
-									alert("旧密码输入错误！");
-								}
+							$.post("${ctx}/admin/updatepwd",{userId:userId,oldpwd:oldpwd,newpwd:newpwd},function(data){
+                               // alert(data);
+                                if(data=='0'){
+                                    alert("修改成功!");
+                                }else{
+                                    alert("请输入正确的密码!");
+                                }
+
 							});
 						}
 					});
