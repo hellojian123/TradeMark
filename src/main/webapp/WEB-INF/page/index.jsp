@@ -137,11 +137,36 @@
 	</script>
 </head>
 <body>
-	<div id="warper">
+
 		<div id="header">
-			<div class="logo"><a href="" target="_self"><img src="${ctx}/matter/images/logo.png"  alt="" /></a></div>
+			<div class="logo"><a href="" target="_self"><img src="${ctx}/matter/images/logo1.png"  alt="" /></a></div>
 			<span class="la"><a href="#" target="_blank">English</a></span>
-			<div class="ad"><img src="${ctx}/matter/images/1-2.gif"/></div>
+			<div class="ad">
+				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="465" height="59" id="FlashID" title="ad">
+					<param name="movie" value="images/ad.swf" />
+					<param name="quality" value="high" />
+					<param name="wmode" value="opaque" />
+					<param name="swfversion" value="15.0.0.0" />
+					<!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+					<!-- <param name="expressinstall" value="Scripts/expressInstall.swf" />-->
+					<!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+					<!--[if !IE]>-->
+					<object type="application/x-shockwave-flash" data="${ctx}/matter/images/ad.swf" width="465" height="59">
+						<!--<![endif]-->
+						<param name="quality" value="high" />
+						<param name="wmode" value="opaque" />
+						<param name="swfversion" value="15.0.0.0" />
+						<!--<param name="expressinstall" value="Scripts/expressInstall.swf" />-->
+						<!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+						<div>
+							<h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+							<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" width="112" height="33" /></a></p>
+						</div>
+						<!--[if !IE]>-->
+					</object>
+					<!--<![endif]-->
+				</object>
+			</div>
 
 			<div class="clear"></div>
 		</div>
@@ -226,10 +251,10 @@
 			</table>
 		</div>
 		<div id="footer">
-			<p> “中国商标网”是国家工商行政管理总局商标局主办的唯一在线查询商标注册信息的网站V1.017，免费向公众开通商标网上查询。<br />
-				网址：http://www.ctmo.gov.cn或http://sbj.saic.gov.cn<br />
-				中华人民共和国国家工商行政管理总局 北京市西城区三里河东路八号.100820 国家工商总局经济信息中心技术支持</p>
+			<p> “商标查询网”是国家工商行政管理总局商标局主办的在线查询商标注册信息的网站，免费向公众开通商标网上查询。
+				网址：http://www.xxx.com
+				中华人民共和国国家工商行政管理总局 国家工商总局经济信息中心技术支持</p>
 		</div>
-	</div>
+
 </body>
 </html>

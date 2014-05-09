@@ -98,10 +98,6 @@ showPages.prototype.createUrl = function (page) { //生成页面跳转url
     return url + args;   
 }   
 showPages.prototype.toPage = function(page){ //页面跳转
-    if($("#hdApplyNum").val()!=""){
-        alert("请先保存修改哦！");
-        return ;
-    }
     var turnTo = 1;
     if (typeof(page) == 'object') {   
         turnTo = page.options[page.selectedIndex].value;   

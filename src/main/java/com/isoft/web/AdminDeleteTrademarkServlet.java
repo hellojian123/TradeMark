@@ -23,7 +23,8 @@ public class AdminDeleteTrademarkServlet extends HttpServlet {
         String ids=request.getParameter("ids");
         TrademarkService ts=new TrademarkService();
         PrintWriter out=response.getWriter();
-        if(ts.deleteObj(ids)==1){out.write("删除成功！");}else {out.write("删除失败！");}
+        if(ts.deleteObj(ids)==1){out.print("删除成功！");}else{out.print("删除失败！");}
+        request.setAttribute("currentPage",request.getAttribute("currentPage"));
         out.flush();
         out.close();
     }

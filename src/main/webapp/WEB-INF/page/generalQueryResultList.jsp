@@ -8,8 +8,14 @@
     <meta content="MSHTML 6.00.2800.1400" name="GENERATOR">
     <title>中国商标网</title>
     <link href="${ctx}/matter/css/categoriesHelpStyle.css" type="text/css" rel="stylesheet">
-    <script language="JavaScript">
-
+	<link href="${ctx}/matter/css/fenye.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="${ctx}/matter/js/jquery-1.8.3.min.js"></script>
+	<script src="${ctx}/matter/js/fenyeScript.js" type="text/javascript"></script>
+	<script language="JavaScript">
+		function openWindow(regNum,classNum){
+			//left=100,top=20,width=820,height=700,scrollbars=yes,resizable=yes,location=no,status=no,resizable=no
+			window.open('${ctx}/queryResultList?applyNum='+regNum+'&selectTN=${type}&selectCHPN=${type}&selectENGPN=${type}&classificationNum='+classNum,'_blank','width=900 height=500 left=50 top=180  scrollbars=1 resizable=1');
+		}
     </script>
 </head>
 
@@ -19,22 +25,15 @@
 <td align="center">
 <form name="ResForm">
 
-<input type="hidden" name="SelectContent" value="申请人名称（英文）是：f;选择的是:前包含">
-<input type="hidden" name="RegNO" value="">
-<input type="hidden" name="IntCls" value="">
-<input type="hidden" name="TradName" value="">
-<input type="hidden" name="selectTN" value="0">
-<input type="hidden" name="PeoNameCH" value="">
-<input type="hidden" name="selectCHPN" value="0">
-<input type="hidden" name="PeoNameENG" value="f">
-<input type="hidden" name="selectENGPN" value="0">
-<input type="hidden" name="codeShow" value="4zac">
-<input type="hidden" name="path" value="/trssearch">
-
 <table border="0" width="600" cellpadding="0" cellspacing="1" class="tbg2">
 
-<tbody><tr>
-    <td height="17" colspan="2" align="center">查询结果如下（点击申请人名称可以得到具体信息）
+<tbody>
+<tr>
+    <td height="17" colspan="2" align="center">查询结果如下（点击
+	    <c:if test="${!empty applicantNameEn}">申请人名称</c:if>
+	    <c:if test="${!empty applicantNameZh}">申请人名称</c:if>
+	    <c:if test="${!empty trademarkName}">商标名称</c:if>
+	    可以得到具体信息）
         <br>
         查询内容是:
         <c:if test="${!empty applicantNameEn}">申请人名称（英文）是:${applicantNameEn}</c:if>
@@ -49,54 +48,19 @@
 
 <tr>
     <td align="center" colspan="2">
-        查询到的页数共：${pm.maxPage}页
-
-        <font color="red">1</font>
-
-        <a onclick="connect(1)" target="_self" style="cursor:hand;">
-            2</a>
-
-        <a onclick="connect(2)" target="_self" style="cursor:hand;">
-            3</a>
-
-        <a onclick="connect(3)" target="_self" style="cursor:hand;">
-            4</a>
-
-        <a onclick="connect(4)" target="_self" style="cursor:hand;">
-            5</a>
-
-        <a onclick="connect(5)" target="_self" style="cursor:hand;">
-            6</a>
-
-        <a onclick="connect(6)" target="_self" style="cursor:hand;">
-            7</a>
-
-        <a onclick="connect(7)" target="_self" style="cursor:hand;">
-            8</a>
-
-        <a onclick="connect(8)" target="_self" style="cursor:hand;">
-            9</a>
-
-        <a onclick="connect(9)" target="_self" style="cursor:hand;">
-            10</a>
-
+        查询到的页数共：${pm.maxPage}页；
+	    当前是第${pm.curPage}页
     </td>
 </tr>
 <tr>
     <td align="center" colspan="2">
-        当前是第1页
-
-        &nbsp;&nbsp;
-        <font color="red">首  页</font>
-        &nbsp;&nbsp;
-        <font color="red">前一页</font>
-
-
-        &nbsp;&nbsp;
-        <a onclick="connect(1)" target="_self" style="cursor:hand;">后一页</a>
-        &nbsp;&nbsp;
-        <a onclick="connect(727)" target="_self" style="cursor:hand;">末 页</a>
-
+        <div id="page" class="yahoo2">
+        </div>
+		<script type="text/javascript">
+			$("#page").html(fenyeComment("${pm.maxPage}","${pm.curPage}","${ctx}/queryResultList",
+					"trademarkName=${trademarkName}&applicantNameZh=${applicantNameZh}&applicantNameEn=${applicantNameEn}"+
+					"&selectTN=${type}&selectCHPN=${type}&selectENGPN=${type}"));
+		</script>
     </td>
 </tr>
 
@@ -115,7 +79,7 @@
         ${status.index+1}
     </td>
     <td align="center" colspan="1" width="25%">
-        <a onclick="javascript:window.open('')" style="cursor:hand;">
+        <a href="javascript:openWindow('${tm.applyNum}','${tm.classificationNum}')" style="cursor:hand;" >
             <c:if test="${!empty applicantNameEn}">${tm.applicantNameEn}</c:if>
             <c:if test="${!empty applicantNameZh}">${tm.applicantNameZh}</c:if>
             <c:if test="${!empty trademarkName}">${tm.trademarkName}</c:if>
@@ -123,39 +87,23 @@
     </td>
 </tr>
 </c:forEach>
-
 <tr>
-    <td align="center" colspan="2">
-        查询到的页数共：${pm.maxPage}页
-
-        <font color="red">1</font>
-
-        <a onclick="connect(1)" target="_self" style="cursor:hand;">
-            2</a>
-
-        <a onclick="connect(2)" target="_self" style="cursor:hand;">
-            3</a>
-    </td>
+	<td align="center" colspan="2">
+		查询到的页数共：${pm.maxPage}页；
+		当前是第${pm.curPage}页
+	</td>
 </tr>
 <tr>
-    <td align="center" colspan="2">
-        当前是第1页
-
-        &nbsp;&nbsp;
-        <font color="red">首  页</font>
-        &nbsp;&nbsp;
-        <font color="red">前一页</font>
-
-
-        &nbsp;&nbsp;
-        <a onclick="connect(1)" target="_self" style="cursor:hand;">后一页</a>
-        &nbsp;&nbsp;
-        <a onclick="connect(727)" target="_self" style="cursor:hand;">末 页</a>
-
-    </td>
+	<td align="center" colspan="2">
+		<div id="page2" class="yahoo2">
+		</div>
+		<script type="text/javascript">
+			$("#page2").html(fenyeComment("${pm.maxPage}","${pm.curPage}","${ctx}/queryResultList",
+					"trademarkName=${trademarkName}&applicantNameZh=${applicantNameZh}&applicantNameEn=${applicantNameEn}"+
+							"&selectTN=${type}&selectCHPN=${type}&selectENGPN=${type}"));
+		</script>
+	</td>
 </tr>
-
-
 <tr><td align="center" colspan="2"><font color="red">仅供参考，无任何法律效力，请核实后使用</font></td></tr>
 <tr>
     <td width="99%" colspan="2" align="center">
@@ -169,9 +117,6 @@
 </form>
 </td>
 </tr></tbody></table>
-
-
-
 </body>
 </html>
 

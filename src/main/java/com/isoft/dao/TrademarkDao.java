@@ -275,6 +275,7 @@ public class TrademarkDao {
 
 		String likeCondtition = null;
 		String sql = "select * from t_trademark where "+sqlQueryFeild;
+		int pageStartNum = 0;
 		if(selectCondition==0){	//前包含查询
 			likeCondtition = " like ?";
 			queryContent = queryContent+"%";
@@ -288,20 +289,37 @@ public class TrademarkDao {
 		}
 		sql = sql+likeCondtition+" limit ?,?";
 
-		if(currentPage>0){
+		if(currentPage<0){
+			currentPage=1;
+		}
+		if (currentPage>0){
 			currentPage=currentPage-1;
 		}
-		if(currentPage<0){
-			currentPage=0;
-		}
+		pageStartNum = currentPage*pageSize;
+
 
 		try {
-			return DaoUtils.findAll(sql,Trademark.class,queryContent,currentPage,pageSize);
+			return DaoUtils.findAll(sql,Trademark.class,queryContent,pageStartNum,pageSize);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+
+    /**
+     * By HALOBING at 2014/5/8 18:00
+     * 后台模糊查询商标名称
+     * @return
+     */
+    public List<Trademark> adminLikeSearch(String name){
+        String sql="SELECT * FROM t_trademark where trademarkName like ?";
+        try {
+            return DaoUtils.searchAll(sql,Trademark.class,"%"+name+"%");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
 
