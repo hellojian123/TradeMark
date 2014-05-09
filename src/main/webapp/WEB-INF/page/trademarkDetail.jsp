@@ -77,7 +77,7 @@
 									商标图像</td>
 								<td  class="detail-inner2-w2">
 									<a href="" target="_blank">
-										<img  src="${tm.imgPath}"alt="商标名图像">
+										<img  src="${tm.imgPath}"alt="商标名图像" width="340px" height="230px">
 									</a>
 								</td>
 								<td class="detail-inner2-w1">
