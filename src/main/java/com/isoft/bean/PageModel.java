@@ -17,6 +17,8 @@ public class PageModel<T> {
     private int count;
     /**最大分页数**/
     private int maxPage;
+	/*当前页*/
+	private int curPage;
 
     public PageModel(){}
 
@@ -61,4 +63,11 @@ public class PageModel<T> {
         this.maxPage = maxPage;
     }
 
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
+	}
 }

@@ -90,7 +90,7 @@
                                         ${ht:delHTMLTag(tm.servicesList)}
                                     </c:if>
 									<br >
-									<a href="#" target="_blank">
+									<a href="javascript:window.open('${ctx}/categoriesHelp.jsp','','width=650 height=400 left=200 top=30 menubar=0 toolbar=0 location=no status=no directories=0 scrollbars=1 resizable=no')" >
 										<span class="font-color">查看详细信息 ...</span></a>
 
 								</td>
