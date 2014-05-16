@@ -24,7 +24,7 @@ public class AdminTrademarkListServlet extends HttpServlet {
         WebUtils.checkSession(request, response, "admin", "/goAdmin.jsp");   //检查session中是否有admin。有则为admin登陆状态。
 
         int currentPage=Integer.parseInt((request.getParameter("currentPage") == null||"".equals(request.getParameter("currentPage"))) ? "1" : request.getParameter("currentPage"));
-        int pageSize=3;//每页显示的条数
+        int pageSize=10;//每页显示的条数
         TrademarkService ts=new TrademarkService();
         int totalCount=ts.getTotalCount();
         PageModel<Trademark> pm=new PageModel<Trademark>(totalCount,pageSize);

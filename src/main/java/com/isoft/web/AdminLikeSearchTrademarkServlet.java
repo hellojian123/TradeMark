@@ -27,7 +27,7 @@ public class AdminLikeSearchTrademarkServlet extends HttpServlet {
 
         List<Trademark> list=ts.AdminLikeSearch(trademarkName);
         int currentPage=Integer.parseInt((request.getParameter("currentPage") == null||"".equals(request.getParameter("currentPage"))) ? "1" : request.getParameter("currentPage"));
-        int pageSize=3;//每页显示的条数
+        int pageSize=10;//每页显示的条数
         int totalCount=ts.getTotalCount();
         PageModel<Trademark> pm=new PageModel<Trademark>(totalCount,pageSize);
         pm.setResult(list);
