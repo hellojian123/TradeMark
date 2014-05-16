@@ -172,12 +172,12 @@
 		</div>
 		<div class="nav">
 			<ul>
-				<li>首页</li>
-				<li>商标近似查询</li>
-				<li><a href="#" target="_self">商标综合查询</a></li>
-				<li>商标状态查询</li>
-				<li>错误信息反馈</li>
-				<li>操作指南</li>
+				<li><a href="${ctx}/errorpage.jsp" >首页</a></li>
+				<li><a href="${ctx}/errorpage.jsp" > 商标近似查询</a></li>
+				<li><a href="${ctx}/index">商标综合查询</a></li>
+				<li><a href="${ctx}/errorpage.jsp" >商标状态查询</a></li>
+				<li><a href="${ctx}/errorpage.jsp" >错误信息反馈</a></li>
+				<li><a href="${ctx}/errorpage.jsp" >操作指南</a></li>
 			</ul>
 		</div>
 
